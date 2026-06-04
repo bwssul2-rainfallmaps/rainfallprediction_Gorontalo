@@ -28,7 +28,7 @@ jobs:
           pip install folium requests tenacity numpy matplotlib
 
       - name: Run Map Group A
-        run: python generate_map_a.py
+        run: python rainfall_map_a.py
 
       - name: Commit & Push Group A
         run: |
@@ -63,7 +63,7 @@ jobs:
         run: sleep 60
 
       - name: Run Map Group B
-        run: python generate_map_b.py
+        run: python rainfall_map_b.py
 
       - name: Commit & Push Group B
         run: |
@@ -98,7 +98,7 @@ jobs:
         run: sleep 60
 
       - name: Run Map Group C
-        run: python generate_map_c.py
+        run: python rainfall_map_c.py
 
       - name: Commit & Push Group C
         run: |
