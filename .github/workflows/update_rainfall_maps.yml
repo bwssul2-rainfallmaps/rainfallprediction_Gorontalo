@@ -1,0 +1,109 @@
+name: Update Rainfall Maps - Multiple Locations
+
+on:
+  schedule:
+    - cron: '5 3,9,15,21 * * *'     # Every 6 hours at 5 minutes past
+  workflow_dispatch:                # Allows manual trigger
+
+jobs:
+
+  map-group-a:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install folium requests tenacity numpy matplotlib
+
+      - name: Run Map Group A
+        run: python generate_map_a.py
+
+      - name: Commit & Push Group A
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add *_a.html colorbar_*_a.png || true
+          git commit -m "Update Rainfall Map - Group A - $(date +'%Y-%m-%d %H:%M %Z')" || echo "No changes"
+          git push
+
+  map-group-b:
+    needs: map-group-a
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install folium requests tenacity numpy matplotlib
+
+      - name: Stagger delay (60 seconds)
+        run: sleep 60
+
+      - name: Run Map Group B
+        run: python generate_map_b.py
+
+      - name: Commit & Push Group B
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add *_b.html colorbar_*_b.png || true
+          git commit -m "Update Rainfall Map - Group B - $(date +'%Y-%m-%d %H:%M %Z')" || echo "No changes"
+          git push
+
+  map-group-c:
+    needs: map-group-b
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install folium requests tenacity numpy matplotlib
+
+      - name: Stagger delay (60 seconds)
+        run: sleep 60
+
+      - name: Run Map Group C
+        run: python generate_map_c.py
+
+      - name: Commit & Push Group C
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add *_c.html colorbar_*_c.png || true
+          git commit -m "Update Rainfall Map - Group C - $(date +'%Y-%m-%d %H:%M %Z')" || echo "No changes"
+          git push
