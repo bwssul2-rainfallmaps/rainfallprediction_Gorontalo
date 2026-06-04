@@ -34,15 +34,20 @@ jobs:
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
+          
           git add "*.html" "colorbar_*.png" "idw_*.png" || true
           
-          if ! git diff --cached --quiet; then
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
             git commit -m "Update Rainfall Map - Group A - $(date +'%Y-%m-%d %H:%M %Z')"
+            echo "✅ Committed changes"
           fi
           
-          git fetch origin
-          git reset --hard origin/main
+          git fetch origin main
+          git rebase --strategy=ours origin/main || true
           git push --force-with-lease
+          echo "✅ Pushed successfully"
 
   map-group-b:
     needs: map-group-a
@@ -75,15 +80,20 @@ jobs:
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
+          
           git add "*.html" "colorbar_*.png" "idw_*.png" || true
           
-          if ! git diff --cached --quiet; then
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
             git commit -m "Update Rainfall Map - Group B - $(date +'%Y-%m-%d %H:%M %Z')"
+            echo "✅ Committed changes"
           fi
           
-          git fetch origin
-          git reset --hard origin/main
+          git fetch origin main
+          git rebase --strategy=ours origin/main || true
           git push --force-with-lease
+          echo "✅ Pushed successfully"
 
   map-group-c:
     needs: map-group-b
@@ -116,12 +126,17 @@ jobs:
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
+          
           git add "*.html" "colorbar_*.png" "idw_*.png" || true
           
-          if ! git diff --cached --quiet; then
-            git commit -m "Update Rainfall Map - Group B - $(date +'%Y-%m-%d %H:%M %Z')"
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update Rainfall Map - Group C - $(date +'%Y-%m-%d %H:%M %Z')"
+            echo "✅ Committed changes"
           fi
           
-          git fetch origin
-          git reset --hard origin/main
+          git fetch origin main
+          git rebase --strategy=ours origin/main || true
           git push --force-with-lease
+          echo "✅ Pushed successfully"
