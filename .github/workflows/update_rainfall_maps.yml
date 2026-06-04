@@ -2,8 +2,8 @@ name: Update Rainfall Maps - Multiple Locations
 
 on:
   schedule:
-    - cron: '5 3,9,15,21 * * *'     # Every 6 hours at 5 minutes past
-  workflow_dispatch:                # Allows manual trigger
+    - cron: '5 3,9,15,21 * * *'
+  workflow_dispatch:
 
 jobs:
 
@@ -34,8 +34,8 @@ jobs:
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          git add *_a.html colorbar_*_a.png || true
-          git commit -m "Update Rainfall Map - Group A - $(date +'%Y-%m-%d %H:%M %Z')" || echo "No changes"
+          git add "*_a.html" "colorbar_*_a.png" || true
+          git commit -m "Update Rainfall Map - Group A - $(date +'%Y-%m-%d %H:%M %Z')" || echo "No changes to commit"
           git push
 
   map-group-b:
@@ -59,7 +59,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install folium requests tenacity numpy matplotlib
 
-      - name: Stagger delay (60 seconds)
+      - name: Stagger delay
         run: sleep 60
 
       - name: Run Map Group B
@@ -69,8 +69,8 @@ jobs:
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          git add *_b.html colorbar_*_b.png || true
-          git commit -m "Update Rainfall Map - Group B - $(date +'%Y-%m-%d %H:%M %Z')" || echo "No changes"
+          git add "*_b.html" "colorbar_*_b.png" || true
+          git commit -m "Update Rainfall Map - Group B - $(date +'%Y-%m-%d %H:%M %Z')" || echo "No changes to commit"
           git push
 
   map-group-c:
@@ -94,7 +94,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install folium requests tenacity numpy matplotlib
 
-      - name: Stagger delay (60 seconds)
+      - name: Stagger delay
         run: sleep 60
 
       - name: Run Map Group C
@@ -104,6 +104,6 @@ jobs:
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          git add *_c.html colorbar_*_c.png || true
-          git commit -m "Update Rainfall Map - Group C - $(date +'%Y-%m-%d %H:%M %Z')" || echo "No changes"
+          git add "*_c.html" "colorbar_*_c.png" || true
+          git commit -m "Update Rainfall Map - Group C - $(date +'%Y-%m-%d %H:%M %Z')" || echo "No changes to commit"
           git push
