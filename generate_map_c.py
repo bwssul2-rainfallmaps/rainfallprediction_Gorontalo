@@ -673,5 +673,5 @@ if __name__ == "__main__":
     create_prediction_map()
     # create_realtime_map() # disabled to save API calls during testing - enable when ready for real-time map
     print("Done! Files saved (single-file versions):")
-    print("  • rainfall_prediction_map.html")
+    print("  • rainfall_prediction_map_c.html")
     print("  • rainfall_realtime_map.html")
