@@ -504,7 +504,7 @@ def create_prediction_map():
 
     folium.LayerControl().add_to(m)
     m.save("rainfall_prediction_map_a.html")
-    print("✅ Saved: rainfall_prediction_map.html")
+    print("✅ Saved: rainfall_prediction_map_a.html")
 # ────────────────────────────────────────────────
 # Real-Time Map
 # ────────────────────────────────────────────────
