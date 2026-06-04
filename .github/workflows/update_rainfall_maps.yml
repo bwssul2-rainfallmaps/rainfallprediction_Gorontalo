@@ -34,7 +34,7 @@ jobs:
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          git add "*_a.html" "colorbar_*_a.png" || true
+          git add "rainfall_prediction_map_a.html" "colorbar_*.png" "rainfall_realtime_map_a.html" || true
           git commit -m "Update Rainfall Map - Group A - $(date +'%Y-%m-%d %H:%M %Z')" || echo "No changes to commit"
           git push
 
@@ -69,7 +69,7 @@ jobs:
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          git add "*_b.html" "colorbar_*_b.png" || true
+          git add "rainfall_prediction_map_b.html" "colorbar_*.png" "rainfall_realtime_map_b.html" || true
           git commit -m "Update Rainfall Map - Group B - $(date +'%Y-%m-%d %H:%M %Z')" || echo "No changes to commit"
           git push
 
@@ -104,6 +104,6 @@ jobs:
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          git add "*_c.html" "colorbar_*_c.png" || true
+          git add "rainfall_prediction_map_c.html" "colorbar_*.png" "rainfall_realtime_map_c.html" || true
           git commit -m "Update Rainfall Map - Group C - $(date +'%Y-%m-%d %H:%M %Z')" || echo "No changes to commit"
           git push
