@@ -496,8 +496,8 @@ def create_prediction_map():
     {% endraw %}
     '''
 
-    peak_b64 = embed_image_to_base64("colorbar_peak.png")
-    _24h_b64 = embed_image_to_base64("colorbar_24h.png")
+    peak_b64 = embed_image_to_base64("colorbar_peak_a.png")
+    _24h_b64 = embed_image_to_base64("colorbar_24h_a.png")
     legend_html_pred = legend_html_pred.replace("[PEAK_BASE64]", peak_b64).replace("[24H_BASE64]", _24h_b64)
 
     add_draggable_legend(m, legend_html_pred, "legend-pred")
