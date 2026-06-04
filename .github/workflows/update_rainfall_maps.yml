@@ -36,6 +36,7 @@ jobs:
           git config --global user.email "action@github.com"
           git add "*.html" "colorbar_*.png" "idw_*.png" || true
           git commit -m "Update Rainfall Map - Group A - $(date +'%Y-%m-%d %H:%M %Z')" || echo "No changes to commit"
+          git pull --rebase origin main
           git push
 
   map-group-b:
@@ -67,10 +68,12 @@ jobs:
 
       - name: Commit & Push Group B
         run: |
+          run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
           git add "*.html" "colorbar_*.png" "idw_*.png" || true
           git commit -m "Update Rainfall Map - Group B - $(date +'%Y-%m-%d %H:%M %Z')" || echo "No changes to commit"
+          git pull --rebase origin main
           git push
 
   map-group-c:
@@ -106,4 +109,5 @@ jobs:
           git config --global user.email "action@github.com"
           git add "*.html" "colorbar_*.png" "idw_*.png" || true
           git commit -m "Update Rainfall Map - Group C - $(date +'%Y-%m-%d %H:%M %Z')" || echo "No changes to commit"
+          git pull --rebase origin main
           git push
