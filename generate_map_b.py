@@ -396,9 +396,9 @@ def create_prediction_map():
         vmin_p = round(min_p * 0.9, 1) if min_p > 0 else 0.0
         vmax_p = round(max_p * 1.15, 1)
         
-        add_idw_overlay(fg_idw_peak, points_peak, values_peak, "idw_peak", "YlOrRd", "IDW Peak Rain (mm)", 
+        add_idw_overlay(fg_idw_peak, points_peak, values_peak, "idw_peak_b", "YlOrRd", "IDW Peak Rain (mm)_b", 
                         vmin=vmin_p, vmax=vmax_p)
-        create_colorbar_png("colorbar_peak.png", "YlOrRd", vmin_p, vmax_p, "Peak Rainfall (mm)")
+        create_colorbar_png("colorbar_peak.png_b", "YlOrRd", vmin_p, vmax_p, "Peak Rainfall (mm)_b")
 
     if values_24h:
         min_24 = min(values_24h)
@@ -406,9 +406,9 @@ def create_prediction_map():
         vmin_24 = round(min_24 * 0.9, 1) if min_24 > 0 else 0.0
         vmax_24 = round(max_24 * 1.10, 1)
         
-        add_idw_overlay(fg_idw_24h, points_24h, values_24h, "idw_24h", "YlGnBu", "IDW Expected 24h (mm)", 
+        add_idw_overlay(fg_idw_24h, points_24h, values_24h, "idw_24h_b", "YlGnBu", "IDW Expected 24h (mm)_b", 
                         vmin=vmin_24, vmax=vmax_24)
-        create_colorbar_png("colorbar_24h.png", "YlGnBu", vmin_24, vmax_24, "Expected 24h Rainfall (mm)")
+        create_colorbar_png("colorbar_24h.png_b", "YlGnBu", vmin_24, vmax_24, "Expected 24h Rainfall (mm)_b")
 
     fg_idw_peak.add_to(m)
     fg_idw_24h.add_to(m)
@@ -570,11 +570,11 @@ def create_realtime_map():
 
     fg_markers.add_to(m)
 
-    add_idw_overlay(fg_idw, points, values, "idw_current", "YlGnBu", "Current 1h Rainfall")
+    add_idw_overlay(fg_idw, points, values, "idw_current_b", "YlGnBu", "Current 1h Rainfall_b")
 
     rmax = max(values) if values else 0
     vmax = max(5.0, round(rmax + 0.8, 1)) if rmax > 0 else 3.0
-    create_colorbar_png("colorbar_current.png", "YlGnBu", 0.0, vmax, "Current 1h Rainfall (mm)")
+    create_colorbar_png("colorbar_current.png_b", "YlGnBu", 0.0, vmax, "Current 1h Rainfall (mm)_b")
 
     fg_idw.add_to(m)
 
