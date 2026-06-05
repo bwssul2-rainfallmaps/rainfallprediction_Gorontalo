@@ -3,144 +3,192 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rainfall Prediction - Gorontalo</title>
+
+<title>Rainfall Dashboard - Gorontalo</title>
 
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #f4f7fb;
-        color: #333;
-    }
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    background: #eef2f7;
+}
 
-    header {
-        background: #1e3a8a;
-        color: white;
-        text-align: center;
-        padding: 20px;
-    }
+/* ===== HEADER ===== */
+header {
+    height: 60px;
+    background: #1e3a8a;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
 
-    header h1 {
-        margin: 0;
-    }
+/* ===== LAYOUT ===== */
+.wrapper {
+    display: flex;
+    height: calc(100vh - 60px);
+}
 
-    .container {
-        max-width: 1100px;
-        margin: 20px auto;
-        padding: 20px;
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    }
+/* ===== SIDEBAR ===== */
+.sidebar {
+    width: 240px;
+    background: #ffffff;
+    border-right: 1px solid #ddd;
+    padding: 15px;
+}
 
-    h2 {
-        color: #1e3a8a;
-    }
+.sidebar h3 {
+    margin-top: 0;
+    color: #1e3a8a;
+}
 
-    .map-container {
-        width: 100%;
-        height: 600px;
-        border: 2px solid #ddd;
-        border-radius: 8px;
-        overflow: hidden;
-    }
+/* BUTTONS */
+.menu-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 6px;
+    background: #2563eb;
+    color: white;
+    text-align: left;
+    cursor: pointer;
+}
 
-    iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-    }
+.menu-btn:hover {
+    background: #1e40af;
+}
 
-    .buttons {
-        text-align: center;
-        margin-bottom: 15px;
-    }
+.menu-btn.active {
+    background: #16a34a;
+}
 
-    .btn {
-        padding: 10px 15px;
-        margin: 5px;
-        border: none;
-        border-radius: 6px;
-        background: #2563eb;
-        color: white;
-        cursor: pointer;
-    }
+/* ===== MAIN AREA ===== */
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
 
-    .btn:hover {
-        background: #1e40af;
-    }
+/* STATUS BAR */
+.status {
+    background: white;
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+}
 
-    footer {
-        text-align: center;
-        padding: 15px;
-        background: #1e3a8a;
-        color: white;
-        margin-top: 30px;
-    }
+/* MAP */
+.map-container {
+    flex: 1;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* FOOTER */
+.footer {
+    text-align: center;
+    padding: 6px;
+    font-size: 12px;
+    background: #f1f5f9;
+}
 </style>
+
 </head>
 
 <body>
 
 <header>
-    <h1>Rainfall Prediction Map - Gorontalo</h1>
-    <p>IDW Interpolation + OpenWeather API</p>
+    🌧️ Rainfall Monitoring Dashboard – Gorontalo
 </header>
 
-<div class="container">
-    <h2>About</h2>
-    <p>
-        This project generates rainfall maps for Gorontalo Area and its Basins using 
-        OpenWeather API data and Inverse Distance Weighting (IDW) interpolation.
-    </p>
-</div>
+<div class="wrapper">
 
-<div class="container">
-    <h2>Interactive Map</h2>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h3>Maps</h3>
 
-    <div class="buttons">
-        <button class="btn" onclick="showMap('prediction')">Prediction Map</button>
+        <button class="menu-btn active" onclick="switchMap(event,'a')">Map A (Zone A)</button>
+        <button class="menu-btn" onclick="switchMap(event,'b')">Map B (Zone B)</button>
+        <button class="menu-btn" onclick="switchMap(event,'c')">Map C (Zone C)</button>
+        <button class="menu-btn" onclick="switchMap(event,'realtime')">Realtime</button>
+
+        <hr>
+
+        <h3>Info</h3>
+        <p style="font-size:13px;">
+            • Data: OpenWeather API<br>
+            • Interpolation: IDW<br>
+            • Basin: LBB Area
+        </p>
     </div>
 
-    <div class="map-container">
-        <iframe id="mapFrame" src="rainfall_prediction_map_a.html"></iframe>
+    <!-- MAIN -->
+    <div class="main">
+
+        <div class="status">
+            <div id="mapTitle">Map A - Prediction</div>
+            <div id="timestamp">Loading...</div>
+        </div>
+
+        <div class="map-container">
+            rainfall_prediction_map_a.html"></iframe>
+        </div>
+
+        <div class="footer">
+            © 2026 Rainfall Dashboard | BWSSUL II
+        </div>
+
     </div>
-</div>
 
-<div class="container">
-    <h2>Methodology</h2>
-    <ul>
-        <li>🌐 Data source: OpenWeatherMap API</li>
-        <li>📍 Multiple station sampling</li>
-        <li>📊 3-hour forecast aggregation</li>
-        <li>📐 IDW interpolation for spatial mapping</li>
-        <li>🗺️ Visualization using Folium</li>
-    </ul>
 </div>
-
-<div class="container">
-    <h2>Repository</h2>
-    <p>
-        https://github.com/bwssul2-rainfallmaps/rainfallprediction_Gorontalo
-            View on GitHub
-        </a>
-    </p>
-</div>
-
-<footer>
-    <p>© 2026 Rainfall Mapping Project</p>
-</footer>
 
 <script>
-function showMap(type) {
+function switchMap(event, type) {
     const frame = document.getElementById("mapFrame");
+    const title = document.getElementById("mapTitle");
 
-    if(type === "prediction") {
+    // button highlight
+    document.querySelectorAll(".menu-btn")
+        .forEach(btn => btn.classList.remove("active"));
+    event.target.classList.add("active");
+
+    if(type === "a") {
         frame.src = "rainfall_prediction_map_a.html";
-    } else {
+        title.innerText = "Map A - Prediction";
+    }
+    else if(type === "b") {
+        frame.src = "rainfall_prediction_map_b.html";
+        title.innerText = "Map B - Prediction";
+    }
+    else if(type === "c") {
+        frame.src = "rainfall_prediction_map_c.html";
+        title.innerText = "Map C - Prediction";
+    }
+    else {
         frame.src = "rainfall_realtime_map_a.html";
+        title.innerText = "Realtime Rainfall Map";
     }
 }
+
+/* live clock */
+function updateTime() {
+    const now = new Date();
+    document.getElementById("timestamp").innerText =
+        now.toLocaleString();
+}
+
+setInterval(updateTime, 1000);
+updateTime();
 </script>
 
 </body>
