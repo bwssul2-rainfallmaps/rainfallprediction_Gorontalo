@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rainfall Prediction - Gorontalo</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f4f7fb;
+        color: #333;
+    }
+
+    header {
+        background: #1e3a8a;
+        color: white;
+        text-align: center;
+        padding: 20px;
+    }
+
+    header h1 {
+        margin: 0;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: 20px auto;
+        padding: 20px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+        color: #1e3a8a;
+    }
+
+    .map-container {
+        width: 100%;
+        height: 600px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    .buttons {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        margin: 5px;
+        border: none;
+        border-radius: 6px;
+        background: #2563eb;
+        color: white;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background: #1e40af;
+    }
+
+    footer {
+        text-align: center;
+        padding: 15px;
+        background: #1e3a8a;
+        color: white;
+        margin-top: 30px;
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Rainfall Prediction Map - Gorontalo</h1>
+    <p>IDW Interpolation + OpenWeather API</p>
+</header>
+
+<div class="container">
+    <h2>About</h2>
+    <p>
+        This project generates rainfall maps for the Limboto–Bolango–Bone (LBB) Basin using 
+        OpenWeather API data and Inverse Distance Weighting (IDW) interpolation.
+    </p>
+</div>
+
+<div class="container">
+    <h2>Interactive Map</h2>
+
+    <div class="buttons">
+        <button class="btn" onclick="showMap('prediction')">Prediction Map</button>
+        <button class="btn" onclick="showMap('realtime')">Realtime Map</button>
+    </div>
+
+    <div class="map-container">
+        <iframe id="mapFrame" src="rainfall_prediction_map_a.html"></iframe>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Methodology</h2>
+    <ul>
+        <li>🌐 Data source: OpenWeatherMap API</li>
+        <li>📍 Multiple station sampling</li>
+        <li>📊 3-hour forecast aggregation</li>
+        <li>📐 IDW interpolation for spatial mapping</li>
+        <li>🗺️ Visualization using Folium</li>
+    </ul>
+</div>
+
+<div class="container">
+    <h2>Repository</h2>
+    <p>
+        https://github.com/bwssul2-rainfallmaps/rainfallprediction_Gorontalo
+            View on GitHub
+        </a>
+    </p>
+</div>
+
+<footer>
+    <p>© 2026 Rainfall Mapping Project</p>
+</footer>
+
+<script>
+function showMap(type) {
+    const frame = document.getElementById("mapFrame");
+
+    if(type === "prediction") {
+        frame.src = "rainfall_prediction_map_a.html";
+    } else {
+        frame.src = "rainfall_realtime_map_a.html";
+    }
+}
+</script>
+
+</body>
+</html>
