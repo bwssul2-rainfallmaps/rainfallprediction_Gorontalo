@@ -25,15 +25,11 @@
             height: calc(100vh - 60px);
         }
         .sidebar {
-            width: 240px;
+            width: 260px;
             background: #ffffff;
             border-right: 1px solid #ddd;
             padding: 15px;
             overflow-y: auto;
-        }
-        .sidebar h3 {
-            margin-top: 0;
-            color: #1e3a8a;
         }
         .menu-btn {
             display: block;
@@ -46,7 +42,6 @@
             color: white;
             text-align: left;
             cursor: pointer;
-            font-size: 15px;
         }
         .menu-btn:hover { background: #1e40af; }
         .menu-btn.active { background: #16a34a; }
@@ -73,6 +68,35 @@
             height: 100%;
             border: none;
         }
+
+        /* LOADING OVERLAY */
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 10;
+        }
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #2563eb;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 12px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         .footer {
             text-align: center;
             padding: 8px;
@@ -83,66 +107,92 @@
     </style>
 </head>
 <body>
-    <header>
-        🌧️ Rainfall Monitoring Dashboard – Gorontalo
-    </header>
+    <header>🌧️ Rainfall Monitoring Dashboard – Gorontalo</header>
     
     <div class="wrapper">
-        <!-- SIDEBAR -->
         <div class="sidebar">
             <h3>Maps</h3>
-            <button class="menu-btn active" onclick="switchMap(event,'a')">Map A (Limboto-Bolango-Bone)</button>
-            <button class="menu-btn" onclick="switchMap(event,'b')">Map B (Paguyaman)</button>
-            <button class="menu-btn" onclick="switchMap(event,'c')">Map C (Randangan)</button>
+            <button class="menu-btn active" onclick="switchMap(event,'a')">Map A - LBB Area</button>
+            <button class="menu-btn" onclick="switchMap(event,'b')">Map B - Paguyaman</button>
+            <button class="menu-btn" onclick="switchMap(event,'c')">Map C - Randangan</button>
+            <button class="menu-btn" onclick="switchMap(event,'realtime')">Realtime Rainfall</button>
             
             <hr>
             <h3>Info</h3>
             <p style="font-size:13px; line-height:1.5;">
                 • Data: OpenWeatherMap<br>
-                • Interpolation: IDW<br>
                 • Updated every 6 hours
             </p>
         </div>
 
-        <!-- MAIN CONTENT -->
         <div class="main">
             <div class="status">
                 <div id="mapTitle">Map A - Prediction (LBB Area)</div>
-                <div id="timestamp">Loading...</div>
+                <div id="timestamp"></div>
             </div>
             
             <div class="map-container">
                 <iframe id="mapFrame" src="rainfall_prediction_map_a.html"></iframe>
+                
+                <!-- Loading Overlay -->
+                <div id="loadingOverlay" class="loading-overlay">
+                    <div class="spinner"></div>
+                    <div>Loading Map...</div>
+                </div>
             </div>
             
             <div class="footer">
-                © 2026 Rainfall Dashboard | BWSSUL II Gorontalo
+                ©2026 Rainfall Dashboard | BWSSUL II Gorontalo | james.kaunang@pu.go.id
             </div>
         </div>
     </div>
 
     <script>
+        const mapFrame = document.getElementById("mapFrame");
+        const loadingOverlay = document.getElementById("loadingOverlay");
+
+        function showLoading() {
+            loadingOverlay.style.display = "flex";
+        }
+
+        function hideLoading() {
+            // Small delay so user can see the transition
+            setTimeout(() => {
+                loadingOverlay.style.display = "none";
+            }, 800);
+        }
+
         function switchMap(event, type) {
-            const frame = document.getElementById("mapFrame");
+            showLoading();
+
             const title = document.getElementById("mapTitle");
 
             // Highlight active button
             document.querySelectorAll(".menu-btn").forEach(btn => btn.classList.remove("active"));
             event.target.classList.add("active");
 
+            let newSrc = "";
+
             if (type === "a") {
-                frame.src = "rainfall_prediction_map_a.html";
-                title.innerText = "Map A - Prediction (Limboto-Bolango-Bone)";
-            } 
-            else if (type === "b") {
-                frame.src = "rainfall_prediction_map_b.html";
+                newSrc = "rainfall_prediction_map_a.html";
+                title.innerText = "Map A - Prediction (LBB Area)";
+            } else if (type === "b") {
+                newSrc = "rainfall_prediction_map_b.html";
                 title.innerText = "Map B - Prediction (Paguyaman)";
-            } 
-            else if (type === "c") {
-                frame.src = "rainfall_prediction_map_c.html";
+            } else if (type === "c") {
+                newSrc = "rainfall_prediction_map_c.html";
                 title.innerText = "Map C - Prediction (Randangan)";
+            } else if (type === "realtime") {
+                newSrc = "rainfall_realtime_map_a.html";
+                title.innerText = "Realtime Rainfall Map";
             }
+
+            // Change source and hide loading when loaded
+            mapFrame.src = newSrc;
         }
+
+        // Hide loading when iframe finishes loading
+        mapFrame.onload = hideLoading;
 
         // Live clock
         function updateTime() {
