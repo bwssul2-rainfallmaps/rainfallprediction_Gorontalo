@@ -1,194 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rainfall Dashboard - Gorontalo</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            background: #eef2f7;
+        }
+        header {
+            height: 60px;
+            background: #1e3a8a;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .wrapper {
+            display: flex;
+            height: calc(100vh - 60px);
+        }
+        .sidebar {
+            width: 240px;
+            background: #ffffff;
+            border-right: 1px solid #ddd;
+            padding: 15px;
+            overflow-y: auto;
+        }
+        .sidebar h3 {
+            margin-top: 0;
+            color: #1e3a8a;
+        }
+        .menu-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 6px 0;
+            border: none;
+            border-radius: 6px;
+            background: #2563eb;
+            color: white;
+            text-align: left;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        .menu-btn:hover { background: #1e40af; }
+        .menu-btn.active { background: #16a34a; }
 
-<title>Rainfall Dashboard - Gorontalo</title>
-
-<style>
-body {
-    margin: 0;
-    font-family: "Segoe UI", Tahoma, sans-serif;
-    background: #eef2f7;
-}
-
-/* ===== HEADER ===== */
-header {
-    height: 60px;
-    background: #1e3a8a;
-    color: white;
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-/* ===== LAYOUT ===== */
-.wrapper {
-    display: flex;
-    height: calc(100vh - 60px);
-}
-
-/* ===== SIDEBAR ===== */
-.sidebar {
-    width: 240px;
-    background: #ffffff;
-    border-right: 1px solid #ddd;
-    padding: 15px;
-}
-
-.sidebar h3 {
-    margin-top: 0;
-    color: #1e3a8a;
-}
-
-/* BUTTONS */
-.menu-btn {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    border: none;
-    border-radius: 6px;
-    background: #2563eb;
-    color: white;
-    text-align: left;
-    cursor: pointer;
-}
-
-.menu-btn:hover {
-    background: #1e40af;
-}
-
-.menu-btn.active {
-    background: #16a34a;
-}
-
-/* ===== MAIN AREA ===== */
-.main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-/* STATUS BAR */
-.status {
-    background: white;
-    padding: 10px 15px;
-    border-bottom: 1px solid #ddd;
-    font-size: 14px;
-    display: flex;
-    justify-content: space-between;
-}
-
-/* MAP */
-.map-container {
-    flex: 1;
-}
-
-iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-/* FOOTER */
-.footer {
-    text-align: center;
-    padding: 6px;
-    font-size: 12px;
-    background: #f1f5f9;
-}
-</style>
-
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .status {
+            background: white;
+            padding: 10px 15px;
+            border-bottom: 1px solid #ddd;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .map-container {
+            flex: 1;
+            position: relative;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .footer {
+            text-align: center;
+            padding: 8px;
+            font-size: 12px;
+            background: #f1f5f9;
+            color: #555;
+        }
+    </style>
 </head>
-
 <body>
+    <header>
+        🌧️ Rainfall Monitoring Dashboard – Gorontalo
+    </header>
+    
+    <div class="wrapper">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <h3>Maps</h3>
+            <button class="menu-btn active" onclick="switchMap(event,'a')">Map A (Limboto-Bolango-Bone)</button>
+            <button class="menu-btn" onclick="switchMap(event,'b')">Map B (Paguyaman)</button>
+            <button class="menu-btn" onclick="switchMap(event,'c')">Map C (Randangan)</button>
+            
+            <hr>
+            <h3>Info</h3>
+            <p style="font-size:13px; line-height:1.5;">
+                • Data: OpenWeatherMap<br>
+                • Interpolation: IDW<br>
+                • Updated every 6 hours
+            </p>
+        </div>
 
-<header>
-    🌧️ Rainfall Monitoring Dashboard – Gorontalo
-</header>
-
-<div class="wrapper">
-
-    <!-- SIDEBAR -->
-    <div class="sidebar">
-        <h3>Maps</h3>
-
-        <button class="menu-btn active" onclick="switchMap(event,'a')">Map A (LBB)</button>
-        <button class="menu-btn" onclick="switchMap(event,'b')">Map B (Paguyaman)</button>
-        <button class="menu-btn" onclick="switchMap(event,'c')">Map C (Randangan)</button>
-
-        <hr>
-
-        <h3>Info</h3>
-        <p style="font-size:13px;">
-            • Data: OpenWeather API<br>
-            • Interpolation: IDW<br>
-            • Basin: LBB Area
-        </p>
+        <!-- MAIN CONTENT -->
+        <div class="main">
+            <div class="status">
+                <div id="mapTitle">Map A - Prediction (LBB Area)</div>
+                <div id="timestamp">Loading...</div>
+            </div>
+            
+            <div class="map-container">
+                <iframe id="mapFrame" src="rainfall_prediction_map_a.html"></iframe>
+            </div>
+            
+            <div class="footer">
+                © 2026 Rainfall Dashboard | BWSSUL II Gorontalo
+            </div>
+        </div>
     </div>
 
-    <!-- MAIN -->
-    <div class="main">
+    <script>
+        function switchMap(event, type) {
+            const frame = document.getElementById("mapFrame");
+            const title = document.getElementById("mapTitle");
 
-        <div class="status">
-            <div id="mapTitle">Map A - Prediction</div>
-            <div id="timestamp">Loading...</div>
-        </div>
+            // Highlight active button
+            document.querySelectorAll(".menu-btn").forEach(btn => btn.classList.remove("active"));
+            event.target.classList.add("active");
 
-        <div class="map-container">
-            rainfall_prediction_map_a.html"></iframe>
-        </div>
+            if (type === "a") {
+                frame.src = "rainfall_prediction_map_a.html";
+                title.innerText = "Map A - Prediction (Limboto-Bolango-Bone)";
+            } 
+            else if (type === "b") {
+                frame.src = "rainfall_prediction_map_b.html";
+                title.innerText = "Map B - Prediction (Paguyaman)";
+            } 
+            else if (type === "c") {
+                frame.src = "rainfall_prediction_map_c.html";
+                title.innerText = "Map C - Prediction (Randangan)";
+            }
+        }
 
-        <div class="footer">
-            © 2026 Rainfall Dashboard | BWSSUL II
-        </div>
-
-    </div>
-
-</div>
-
-<script>
-function switchMap(event, type) {
-    const frame = document.getElementById("mapFrame");
-    const title = document.getElementById("mapTitle");
-
-    // button highlight
-    document.querySelectorAll(".menu-btn")
-        .forEach(btn => btn.classList.remove("active"));
-    event.target.classList.add("active");
-
-    if(type === "a") {
-        frame.src = "rainfall_prediction_map_a.html";
-        title.innerText = "Map A - Prediction";
-    }
-    else if(type === "b") {
-        frame.src = "rainfall_prediction_map_b.html";
-        title.innerText = "Map B - Prediction";
-    }
-    else if(type === "c") {
-        frame.src = "rainfall_prediction_map_c.html";
-        title.innerText = "Map C - Prediction";
-    }
-    else {
-        frame.src = "rainfall_realtime_map_a.html";
-        title.innerText = "Realtime Rainfall Map";
-    }
-}
-
-/* live clock */
-function updateTime() {
-    const now = new Date();
-    document.getElementById("timestamp").innerText =
-        now.toLocaleString();
-}
-
-setInterval(updateTime, 1000);
-updateTime();
-</script>
-
+        // Live clock
+        function updateTime() {
+            const now = new Date();
+            document.getElementById("timestamp").innerText = 
+                now.toLocaleString('id-ID', { timeZone: 'Asia/Makassar' });
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
 </body>
 </html>
