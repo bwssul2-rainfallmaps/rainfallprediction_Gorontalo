@@ -1,4 +1,4 @@
-name: Update Rainfall Maps - Multiple Locations
+name: Update Rainfall Maps - Staggered
 
 on:
   schedule:
@@ -6,11 +6,10 @@ on:
   workflow_dispatch:
 
 jobs:
-
-  map-group-a:
+  rainfall-maps:
     runs-on: ubuntu-latest
+
     env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
 
     steps:
@@ -27,116 +26,46 @@ jobs:
           python -m pip install --upgrade pip
           pip install folium requests tenacity numpy matplotlib
 
+      # -------------------------
+      # MAP GROUP A
+      # -------------------------
       - name: Run Map Group A
         run: python generate_map_a.py
 
-      - name: Commit & Push Group A
-        run: |
-          git config --global user.name "GitHub Action"
-          git config --global user.email "action@github.com"
-          
-          git add "*.html" "colorbar_*.png" "idw_*.png" || true
-          
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Update Rainfall Map - Group A - $(date +'%Y-%m-%d %H:%M %Z')"
-            echo "✅ Committed changes"
-          fi
-          
-          git fetch origin main
-          git rebase --strategy=ours origin/main || true
-          git push --force-with-lease
-          echo "✅ Pushed successfully"
-
-  map-group-b:
-    needs: map-group-a
-    runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-      OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install folium requests tenacity numpy matplotlib
-
-      - name: Stagger delay
+      # ✅ 1-minute delay
+      - name: Wait 1 minute before Group B
         run: sleep 60
 
+      # -------------------------
+      # MAP GROUP B
+      # -------------------------
       - name: Run Map Group B
         run: python generate_map_b.py
 
-      - name: Commit & Push Group B
-        run: |
-          git config --global user.name "GitHub Action"
-          git config --global user.email "action@github.com"
-          
-          git add "*.html" "colorbar_*.png" "idw_*.png" || true
-          
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Update Rainfall Map - Group B - $(date +'%Y-%m-%d %H:%M %Z')"
-            echo "✅ Committed changes"
-          fi
-          
-          git fetch origin main
-          git rebase --strategy=ours origin/main || true
-          git push --force-with-lease
-          echo "✅ Pushed successfully"
-
-  map-group-c:
-    needs: map-group-b
-    runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-      OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install folium requests tenacity numpy matplotlib
-
-      - name: Stagger delay
+      # ✅ 1-minute delay
+      - name: Wait 1 minute before Group C
         run: sleep 60
 
+      # -------------------------
+      # MAP GROUP C
+      # -------------------------
       - name: Run Map Group C
         run: python generate_map_c.py
 
-      - name: Commit & Push Group C
+      # -------------------------
+      # COMMIT ONCE
+      # -------------------------
+      - name: Commit & Push All Maps
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          
-          git add "*.html" "colorbar_*.png" "idw_*.png" || true
-          
+
+          git add *.html colorbar_*.png idw_*.png || true
+
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Update Rainfall Map - Group C - $(date +'%Y-%m-%d %H:%M %Z')"
-            echo "✅ Committed changes"
+            git commit -m "Update Rainfall Maps - $(date +'%Y-%m-%d %H:%M %Z')"
+            git push origin main
+            echo "✅ Changes pushed"
           fi
-          
-          git fetch origin main
-          git rebase --strategy=ours origin/main || true
-          git push --force-with-lease
-          echo "✅ Pushed successfully"
