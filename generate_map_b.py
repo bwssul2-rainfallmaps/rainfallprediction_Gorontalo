@@ -25,7 +25,7 @@ if not API_KEY:
 CACHE_DURATION = 3600
 FORECAST_INTERVALS = 8
 TIMEZONE_OFFSET = timedelta(hours=8)
-TIMEZONE_LABEL = "WITA"
+TIMEZONE_LABEL = f"UTC+{f'{FORECAST_INTERVALS}'}"
 
 BASMAP = "OpenStreetMap" #"CartoDB positron" #"OpenStreetMap" "Stamen Terrain" "CartoDB positron" "CartoDB dark_matter" "Stamen Toner", etc
 
