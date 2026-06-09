@@ -80,20 +80,40 @@ def add_rivers_layer(m, geojson_path="rivers.geojson", name="Rivers"):
         with open(geojson_path, encoding="utf-8") as f:
             rivers_data = json.load(f)
         
+        # Safe version - using real field from your data
         folium.GeoJson(
             rivers_data,
             name=name,
             style_function=lambda x: {
-                'color': '#3388ff',
-                'weight': 2.5,
-                'opacity': 0.8,
+                'color': '#1e88e5',
+                'weight': 2.8,
+                'opacity': 0.85,
             },
-            tooltip=folium.GeoJsonTooltip(fields=['name'], aliases=['River:'])  # if your shp has name field
+            tooltip=folium.GeoJsonTooltip(
+                fields=['NAMOBJ'],           # ← Use actual field
+                aliases=['River: '],
+                localize=True
+            ),
+            popup=folium.GeoJsonPopup(
+                fields=['NAMOBJ', 'NAMWS'],
+                aliases=['River Name:', 'Watershed:'],
+                localize=True
+            )
         ).add_to(m)
         
         print(f"✅ Rivers layer added successfully!")
     except Exception as e:
         print(f"❌ Failed to add rivers layer: {e}")
+        # Fallback without tooltip
+        try:
+            folium.GeoJson(
+                rivers_data,
+                name=name,
+                style_function=lambda x: {'color': '#1e88e5', 'weight': 2.5, 'opacity': 0.8}
+            ).add_to(m)
+            print("✅ Rivers layer added (without tooltip)")
+        except:
+            print("⚠️ Could not add rivers layer")
 
 def save_cache(cache_file, data):
     cache = {"timestamp": int(datetime.now().timestamp()), "data": data}
