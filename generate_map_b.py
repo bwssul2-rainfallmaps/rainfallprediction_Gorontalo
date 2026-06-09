@@ -75,6 +75,26 @@ def load_cache(cache_file):
     except: pass
     return {}
 
+def add_rivers_layer(m, geojson_path="rivers.geojson", name="Rivers"):
+    try:
+        with open(geojson_path, encoding="utf-8") as f:
+            rivers_data = json.load(f)
+        
+        folium.GeoJson(
+            rivers_data,
+            name=name,
+            style_function=lambda x: {
+                'color': '#3388ff',
+                'weight': 2.5,
+                'opacity': 0.8,
+            },
+            tooltip=folium.GeoJsonTooltip(fields=['name'], aliases=['River:'])  # if your shp has name field
+        ).add_to(m)
+        
+        print(f"✅ Rivers layer added successfully!")
+    except Exception as e:
+        print(f"❌ Failed to add rivers layer: {e}")
+
 def save_cache(cache_file, data):
     cache = {"timestamp": int(datetime.now().timestamp()), "data": data}
     tmp = tempfile.NamedTemporaryFile(mode="w", delete=False, dir=os.path.dirname(cache_file) or ".")
@@ -502,6 +522,7 @@ def create_prediction_map():
     legend_html_pred = legend_html_pred.replace("[PEAK_BASE64]", peak_b64).replace("[24H_BASE64]", _24h_b64)
 
     add_draggable_legend(m, legend_html_pred, "legend-pred")
+    add_rivers_layer(m, "RBI_Sulawesi2_sungai.geojson", "Rivers")
 
     folium.LayerControl().add_to(m)
     m.save("rainfall_prediction_map_b.html")
