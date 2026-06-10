@@ -33,12 +33,11 @@
         .wrapper {
             display: flex;
             height: calc(100vh - 60px);
-            transition: all 0.3s ease;
         }
         .sidebar {
             width: 260px;
             background: #f0f5ff;
-            border-right: 1px solid #ddd;
+            border-right: 1px solid #c0d0f0;
             padding: 15px;
             overflow-y: auto;
             transition: width 0.3s ease, padding 0.3s ease;
@@ -68,16 +67,12 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            transition: all 0.3s ease;
         }
-
-        .status {
+        .status, .footer {
             background: white;
             padding: 10px 15px;
             border-bottom: 1px solid #ddd;
             font-size: 14px;
-            display: flex;
-            justify-content: space-between;
         }
         .map-container {
             flex: 1;
@@ -89,7 +84,6 @@
             border: none;
         }
 
-        /* Loading Overlay */
         .loading-overlay {
             position: absolute;
             top: 0; left: 0;
@@ -118,6 +112,13 @@
             background: #f1f5f9;
             color: #555;
         }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 260px; /* default on mobile, but will be collapsed by JS */
+            }
+        }
     </style>
 </head>
 <body>
@@ -127,7 +128,6 @@
     </header>
    
     <div class="wrapper">
-        <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
             <h3>Maps</h3>
             <button class="menu-btn active" onclick="switchMap(event,'a')">Map A - LBB Area</button>
@@ -142,7 +142,6 @@
             </p>
         </div>
 
-        <!-- Main Content -->
         <div class="main">
             <div class="status">
                 <div id="mapTitle">Map A - Rainfall Prediction (LBB Area)</div>
@@ -151,7 +150,6 @@
            
             <div class="map-container">
                 <iframe id="mapFrame" src="rainfall_prediction_map_a.html"></iframe>
-               
                 <div id="loadingOverlay" class="loading-overlay">
                     <div class="spinner"></div>
                     <div>Loading Map...</div>
@@ -159,7 +157,7 @@
             </div>
            
             <div class="footer">
-                © 2026 BWSSUL II Gorontalo • Rainfall Dashboard • james.kaunang@pu.go.id
+                © 2026 BWSSUL II Gorontalo • Rainfall Dashboard
             </div>
         </div>
     </div>
@@ -170,16 +168,21 @@
         const mapFrame = document.getElementById("mapFrame");
         const loadingOverlay = document.getElementById("loadingOverlay");
 
+        // Auto-collapse on mobile
+        function checkMobile() {
+            if (window.innerWidth <= 768) {
+                sidebar.classList.add("collapsed");
+                toggleBtn.innerHTML = "☰";
+            } else {
+                sidebar.classList.remove("collapsed");
+                toggleBtn.innerHTML = "✕";
+            }
+        }
+
         // Toggle Sidebar
         toggleBtn.addEventListener("click", () => {
             sidebar.classList.toggle("collapsed");
-            
-            // Change icon
-            if (sidebar.classList.contains("collapsed")) {
-                toggleBtn.innerHTML = "☰";
-            } else {
-                toggleBtn.innerHTML = "✕";
-            }
+            toggleBtn.innerHTML = sidebar.classList.contains("collapsed") ? "☰" : "✕";
         });
 
         function showLoading() {
@@ -222,8 +225,16 @@
             document.getElementById("timestamp").innerText = 
                 now.toLocaleString('id-ID', { timeZone: 'Asia/Makassar' });
         }
+
+        // Initialize
+        window.onload = () => {
+            checkMobile();
+            updateTime();
+        };
         setInterval(updateTime, 1000);
-        updateTime();
+
+        // Re-check on window resize
+        window.addEventListener('resize', checkMobile);
     </script>
 </body>
 </html>
