@@ -19,10 +19,21 @@
             padding: 0 20px;
             font-size: 20px;
             font-weight: bold;
+            position: relative;
         }
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            margin-right: 15px;
+        }
+
         .wrapper {
             display: flex;
             height: calc(100vh - 60px);
+            transition: all 0.3s ease;
         }
         .sidebar {
             width: 260px;
@@ -30,7 +41,14 @@
             border-right: 1px solid #ddd;
             padding: 15px;
             overflow-y: auto;
+            transition: width 0.3s ease, padding 0.3s ease;
         }
+        .sidebar.collapsed {
+            width: 0;
+            padding: 15px 0;
+            overflow: hidden;
+        }
+
         .menu-btn {
             display: block;
             width: 100%;
@@ -50,7 +68,9 @@
             flex: 1;
             display: flex;
             flex-direction: column;
+            transition: all 0.3s ease;
         }
+
         .status {
             background: white;
             padding: 10px 15px;
@@ -69,13 +89,11 @@
             border: none;
         }
 
-        /* LOADING OVERLAY */
+        /* Loading Overlay */
         .loading-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(255,255,255,0.85);
             display: none;
             align-items: center;
@@ -87,15 +105,11 @@
             border: 5px solid #f3f3f3;
             border-top: 5px solid #2563eb;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 50px; height: 50px;
             animation: spin 1s linear infinite;
             margin-bottom: 12px;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         .footer {
             text-align: center;
@@ -107,15 +121,19 @@
     </style>
 </head>
 <body>
-    <header>🌧️ Rainfall Monitoring Dashboard – Gorontalo</header>
-    
+    <header>
+        <button class="toggle-btn" id="toggleSidebar">☰</button>
+        🌧️ Rainfall Monitoring Dashboard – Gorontalo
+    </header>
+   
     <div class="wrapper">
-        <div class="sidebar">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
             <h3>Maps</h3>
             <button class="menu-btn active" onclick="switchMap(event,'a')">Map A - LBB Area</button>
             <button class="menu-btn" onclick="switchMap(event,'b')">Map B - Paguyaman</button>
             <button class="menu-btn" onclick="switchMap(event,'c')">Map C - Randangan</button>
-            
+           
             <hr>
             <h3>Info</h3>
             <p style="font-size:13px; line-height:1.5;">
@@ -124,38 +142,51 @@
             </p>
         </div>
 
+        <!-- Main Content -->
         <div class="main">
             <div class="status">
                 <div id="mapTitle">Map A - Rainfall Prediction (LBB Area)</div>
                 <div id="timestamp"></div>
             </div>
-            
+           
             <div class="map-container">
                 <iframe id="mapFrame" src="rainfall_prediction_map_a.html"></iframe>
-                
-                <!-- Loading Overlay -->
+               
                 <div id="loadingOverlay" class="loading-overlay">
                     <div class="spinner"></div>
                     <div>Loading Map...</div>
                 </div>
             </div>
-            
+           
             <div class="footer">
-                © 2026 BWSSUL II Gorontalo • Rainfall Dashboard • james.kaunang@pu.go.id
+                © 2026 BWSSUL II Gorontalo • Rainfall Dashboard
             </div>
         </div>
     </div>
 
     <script>
+        const sidebar = document.getElementById("sidebar");
+        const toggleBtn = document.getElementById("toggleSidebar");
         const mapFrame = document.getElementById("mapFrame");
         const loadingOverlay = document.getElementById("loadingOverlay");
+
+        // Toggle Sidebar
+        toggleBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("collapsed");
+            
+            // Change icon
+            if (sidebar.classList.contains("collapsed")) {
+                toggleBtn.innerHTML = "☰";
+            } else {
+                toggleBtn.innerHTML = "✕";
+            }
+        });
 
         function showLoading() {
             loadingOverlay.style.display = "flex";
         }
 
         function hideLoading() {
-            // Small delay so user can see the transition
             setTimeout(() => {
                 loadingOverlay.style.display = "none";
             }, 800);
@@ -163,15 +194,12 @@
 
         function switchMap(event, type) {
             showLoading();
-
             const title = document.getElementById("mapTitle");
 
-            // Highlight active button
             document.querySelectorAll(".menu-btn").forEach(btn => btn.classList.remove("active"));
             event.target.classList.add("active");
 
             let newSrc = "";
-
             if (type === "a") {
                 newSrc = "rainfall_prediction_map_a.html";
                 title.innerText = "Map A - Rainfall Prediction (LBB Area)";
@@ -181,16 +209,11 @@
             } else if (type === "c") {
                 newSrc = "rainfall_prediction_map_c.html";
                 title.innerText = "Map C - Rainfall Prediction (Randangan)";
-            } else if (type === "realtime") {
-                newSrc = "rainfall_realtime_map_a.html";
-                title.innerText = "Realtime Rainfall Map";
             }
 
-            // Change source and hide loading when loaded
             mapFrame.src = newSrc;
         }
 
-        // Hide loading when iframe finishes loading
         mapFrame.onload = hideLoading;
 
         // Live clock
