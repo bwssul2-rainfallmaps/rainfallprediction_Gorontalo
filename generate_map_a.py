@@ -462,14 +462,14 @@ def create_prediction_map():
             right: 10px;
             z-index: 1000;
             background: rgba(255,255,255,0.97);
-            padding: 6px 8px;
+            padding: 5px 7px;
             border: 1px solid #ccc;
             border-radius: 6px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.2);
             width: 30vw;
-            max-width: 140px;
+            max-width: 115px;
             min-width: 90px;
-            font-size: 10px;
+            font-size: 9.2px;
             line-height: 1.3;
             user-select: none;
             cursor: move;
@@ -497,7 +497,7 @@ def create_prediction_map():
         }
         #legend-pred img {
             width: 85%;
-            max-width: 90px;
+            max-width: 78px;
             display: block;
             margin: 2px auto;
         }
