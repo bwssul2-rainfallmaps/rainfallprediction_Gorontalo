@@ -2,7 +2,7 @@ name: Update Rainfall Maps - Staggered
 
 on:
   schedule:
-    - cron: '0 4,9,15,21 * * *'
+    - cron: '7 4,9,15,21 * * *'
   workflow_dispatch:
 
 jobs:
