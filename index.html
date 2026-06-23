@@ -130,7 +130,7 @@
     <div class="wrapper">
         <div class="sidebar" id="sidebar">
             <h3>Maps</h3>
-            <button class="menu-btn active" onclick="switchMap(event,'a')">Map A - LBB Area</button>
+            <button class="menu-btn active" onclick="switchMap(event,'a')">Map A - LBB</button>
             <button class="menu-btn" onclick="switchMap(event,'b')">Map B - Paguyaman</button>
             <button class="menu-btn" onclick="switchMap(event,'c')">Map C - Randangan</button>
            
@@ -144,7 +144,7 @@
 
         <div class="main">
             <div class="status">
-                <div id="mapTitle">Map A - Rainfall Prediction (LBB Area)</div>
+                <div id="mapTitle">Map A - Rainfall Prediction (LBB)</div>
                 <div id="timestamp"></div>
             </div>
            
@@ -205,7 +205,7 @@
             let newSrc = "";
             if (type === "a") {
                 newSrc = "rainfall_prediction_map_a.html";
-                title.innerText = "Map A - Rainfall Prediction (LBB Area)";
+                title.innerText = "Map A - Rainfall Prediction (LBB)";
             } else if (type === "b") {
                 newSrc = "rainfall_prediction_map_b.html";
                 title.innerText = "Map B - Rainfall Prediction (Paguyaman)";
