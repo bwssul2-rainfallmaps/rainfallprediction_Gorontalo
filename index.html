@@ -168,22 +168,31 @@
         const mapFrame = document.getElementById("mapFrame");
         const loadingOverlay = document.getElementById("loadingOverlay");
 
-        // Auto-collapse on mobile
-        function checkMobile() {
-            if (window.innerWidth <= 768) {
-                sidebar.classList.add("collapsed");
-                toggleBtn.innerHTML = "☰";
-            } else {
-                sidebar.classList.remove("collapsed");
-                toggleBtn.innerHTML = "✕";
-            }
+        // ================== AUTO REFRESH ==================
+        let refreshInterval = null;
+        const REFRESH_MINUTES = 60;   // ← Change this as needed
+
+        function forceHardRefresh() {
+            if (!mapFrame.src) return;
+            
+            showLoading();
+            
+            let currentSrc = mapFrame.src.split('?')[0];
+            
+            // Strong cache busting
+            const timestamp = new Date().getTime();
+            mapFrame.src = currentSrc + "?v=" + timestamp;
+            
+            console.log("🔄 Hard refreshing map:", mapFrame.src);
         }
 
-        // Toggle Sidebar
-        toggleBtn.addEventListener("click", () => {
-            sidebar.classList.toggle("collapsed");
-            toggleBtn.innerHTML = sidebar.classList.contains("collapsed") ? "☰" : "✕";
-        });
+        function startAutoRefresh() {
+            if (refreshInterval) clearInterval(refreshInterval);
+            
+            refreshInterval = setInterval(() => {
+                forceHardRefresh();
+            }, REFRESH_MINUTES * 60 * 1000);
+        }
 
         function showLoading() {
             loadingOverlay.style.display = "flex";
@@ -203,18 +212,13 @@
             event.target.classList.add("active");
 
             let newSrc = "";
-            if (type === "a") {
-                newSrc = "rainfall_prediction_map_a.html";
-                title.innerText = "Map A - Rainfall Prediction (LBB)";
-            } else if (type === "b") {
-                newSrc = "rainfall_prediction_map_b.html";
-                title.innerText = "Map B - Rainfall Prediction (Paguyaman)";
-            } else if (type === "c") {
-                newSrc = "rainfall_prediction_map_c.html";
-                title.innerText = "Map C - Rainfall Prediction (Randangan)";
-            }
+            if (type === "a") newSrc = "rainfall_prediction_map_a.html";
+            else if (type === "b") newSrc = "rainfall_prediction_map_b.html";
+            else if (type === "c") newSrc = "rainfall_prediction_map_c.html";
 
-            mapFrame.src = newSrc;
+            // Force cache bust on manual switch too
+            const timestamp = new Date().getTime();
+            mapFrame.src = newSrc + "?v=" + timestamp;
         }
 
         mapFrame.onload = hideLoading;
@@ -230,10 +234,10 @@
         window.onload = () => {
             checkMobile();
             updateTime();
+            startAutoRefresh();
         };
-        setInterval(updateTime, 1000);
 
-        // Re-check on window resize
+        setInterval(updateTime, 1000);
         window.addEventListener('resize', checkMobile);
     </script>
 </body>
