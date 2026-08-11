@@ -2,7 +2,7 @@ name: Update Rainfall Maps - Staggered
 
 on:
   schedule:
-    - cron: '6 8,20 * * *'
+    - cron: '6 8,20 * * *' # updated every 12 hour since server is kinda bad rn
   workflow_dispatch:
 
 jobs:
