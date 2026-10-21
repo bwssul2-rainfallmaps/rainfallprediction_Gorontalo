@@ -29,7 +29,6 @@
             cursor: pointer;
             margin-right: 15px;
         }
-
         .wrapper {
             display: flex;
             height: calc(100vh - 60px);
@@ -47,7 +46,6 @@
             padding: 15px 0;
             overflow: hidden;
         }
-
         .menu-btn {
             display: block;
             width: 100%;
@@ -62,7 +60,6 @@
         }
         .menu-btn:hover { background: #1e40af; }
         .menu-btn.active { background: #16a34a; }
-
         .main {
             flex: 1;
             display: flex;
@@ -83,7 +80,6 @@
             height: 100%;
             border: none;
         }
-
         .loading-overlay {
             position: absolute;
             top: 0; left: 0;
@@ -104,7 +100,6 @@
             margin-bottom: 12px;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-
         .footer {
             text-align: center;
             padding: 8px;
@@ -112,25 +107,23 @@
             background: #f1f5f9;
             color: #555;
         }
-
-       /* Mobile Responsive */
+        /* Mobile Responsive */
         @media (max-width: 768px) {
             .sidebar {
-        position: absolute;
-        left: 0;
-        top: 60px; /* below header */
-        width: 260px;
-        height: calc(100vh - 60px);
-        z-index: 1000;
-        box-shadow: 2px 0 10px rgba(0,0,0,0.15);
-    }
-
-    .sidebar.collapsed {
-        width: 0;
-        padding: 15px 0;
-        overflow: hidden;
-    }
-}
+                position: absolute;
+                left: 0;
+                top: 60px;
+                width: 260px;
+                height: calc(100vh - 60px);
+                z-index: 1000;
+                box-shadow: 2px 0 10px rgba(0,0,0,0.15);
+            }
+            .sidebar.collapsed {
+                width: 0;
+                padding: 15px 0;
+                overflow: hidden;
+            }
+        }
     </style>
 </head>
 <body>
@@ -153,7 +146,6 @@
                 • Updated every 6 hours
             </p>
         </div>
-
         <div class="main">
             <div class="status">
                 <div id="mapTitle">Rainfall Prediction Map</div>
@@ -180,14 +172,14 @@
         const mapFrame = document.getElementById("mapFrame");
         const loadingOverlay = document.getElementById("loadingOverlay");
 
-        // ===== SIDEBAR TOGGLE =====
+        // ===== SIDEBAR TOGGLE (only once) =====
         toggleBtn.addEventListener("click", () => {
-        sidebar.classList.toggle("collapsed");
+            sidebar.classList.toggle("collapsed");
         });
 
         // ================== AUTO REFRESH ==================
         let refreshInterval = null;
-        const REFRESH_MINUTES = 60;   // ← Change this as needed
+        const REFRESH_MINUTES = 60;
 
         function forceHardRefresh() {
             if (!mapFrame.src) return;
@@ -195,8 +187,6 @@
             showLoading();
             
             let currentSrc = mapFrame.src.split('?')[0];
-            
-            // Strong cache busting
             const timestamp = new Date().getTime();
             mapFrame.src = currentSrc + "?v=" + timestamp;
             
@@ -224,7 +214,6 @@
         function switchMap(event, type) {
             showLoading();
             const title = document.getElementById("mapTitle");
-
             document.querySelectorAll(".menu-btn").forEach(btn => btn.classList.remove("active"));
             event.target.classList.add("active");
 
@@ -233,7 +222,6 @@
             else if (type === "b") newSrc = "rainfall_prediction_map_b.html";
             else if (type === "c") newSrc = "rainfall_prediction_map_c.html";
 
-            // Force cache bust on manual switch too
             const timestamp = new Date().getTime();
             mapFrame.src = newSrc + "?v=" + timestamp;
         }
@@ -247,11 +235,6 @@
                 now.toLocaleString('id-ID', { timeZone: 'Asia/Makassar' });
         }
 
-        // Sidebar toggle
-        toggleBtn.addEventListener("click", () => {
-            sidebar.classList.toggle("collapsed");
-        });
-        
         // Auto-collapse on mobile
         function checkMobile() {
             if (window.innerWidth <= 768) {
