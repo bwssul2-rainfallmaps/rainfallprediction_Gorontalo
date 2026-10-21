@@ -113,12 +113,24 @@
             color: #555;
         }
 
-        /* Mobile Responsive */
+       /* Mobile Responsive */
         @media (max-width: 768px) {
             .sidebar {
-                width: 260px; /* default on mobile, but will be collapsed by JS */
-            }
-        }
+        position: absolute;
+        left: 0;
+        top: 60px; /* below header */
+        width: 260px;
+        height: calc(100vh - 60px);
+        z-index: 1000;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.15);
+    }
+
+    .sidebar.collapsed {
+        width: 0;
+        padding: 15px 0;
+        overflow: hidden;
+    }
+}
     </style>
 </head>
 <body>
@@ -167,6 +179,11 @@
         const toggleBtn = document.getElementById("toggleSidebar");
         const mapFrame = document.getElementById("mapFrame");
         const loadingOverlay = document.getElementById("loadingOverlay");
+
+        // ===== SIDEBAR TOGGLE =====
+        toggleBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("collapsed");
+        });
 
         // ================== AUTO REFRESH ==================
         let refreshInterval = null;
@@ -228,6 +245,20 @@
             const now = new Date();
             document.getElementById("timestamp").innerText = 
                 now.toLocaleString('id-ID', { timeZone: 'Asia/Makassar' });
+        }
+
+        // Sidebar toggle
+        toggleBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("collapsed");
+        });
+        
+        // Auto-collapse on mobile
+        function checkMobile() {
+            if (window.innerWidth <= 768) {
+                sidebar.classList.add("collapsed");
+            } else {
+                sidebar.classList.remove("collapsed");
+            }
         }
 
         // Initialize
