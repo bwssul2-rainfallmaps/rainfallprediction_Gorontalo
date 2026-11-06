@@ -1,8 +1,8 @@
 {
   "map": "c",
   "area": "Randangan",
-  "generated": "06 November 2026 08:59",
-  "last_update": "2026-11-06T00:59:23Z",
+  "generated": "06 November 2026 23:54",
+  "last_update": "2026-11-06T15:54:20Z",
   "timezone": "UTC+8",
   "thresholds": {
     "peak_heavy_mm": 20.0,
@@ -15,23 +15,13 @@
   "has_warnings": true,
   "n_heavy": 0,
   "n_extreme": 0,
-  "n_moderate": 14,
+  "n_moderate": 7,
   "stations": [
-    {
-      "lat": 0.582721,
-      "lon": 121.291988,
-      "peak_mm": 5.9,
-      "expected_24h_mm": 20.8,
-      "max_pop": 100,
-      "level": "moderate",
-      "peak_level": "normal",
-      "h24_level": "moderate"
-    },
     {
       "lat": 0.716684,
       "lon": 121.967408,
-      "peak_mm": 6.1,
-      "expected_24h_mm": 18.6,
+      "peak_mm": 9.1,
+      "expected_24h_mm": 21.9,
       "max_pop": 100,
       "level": "moderate",
       "peak_level": "normal",
@@ -40,8 +30,8 @@
     {
       "lat": 0.83469,
       "lon": 121.595142,
-      "peak_mm": 7.7,
-      "expected_24h_mm": 18.8,
+      "peak_mm": 7.1,
+      "expected_24h_mm": 18.4,
       "max_pop": 100,
       "level": "moderate",
       "peak_level": "normal",
@@ -50,8 +40,8 @@
     {
       "lat": 0.906919,
       "lon": 121.83341,
-      "peak_mm": 4.8,
-      "expected_24h_mm": 15.5,
+      "peak_mm": 9.9,
+      "expected_24h_mm": 24.2,
       "max_pop": 100,
       "level": "moderate",
       "peak_level": "normal",
@@ -60,38 +50,8 @@
     {
       "lat": 0.684399,
       "lon": 121.750814,
-      "peak_mm": 7.3,
-      "expected_24h_mm": 17.7,
-      "max_pop": 100,
-      "level": "moderate",
-      "peak_level": "normal",
-      "h24_level": "moderate"
-    },
-    {
-      "lat": 0.774285,
-      "lon": 121.391439,
-      "peak_mm": 7.5,
-      "expected_24h_mm": 18.9,
-      "max_pop": 100,
-      "level": "moderate",
-      "peak_level": "normal",
-      "h24_level": "moderate"
-    },
-    {
-      "lat": 0.460289,
-      "lon": 121.133057,
-      "peak_mm": 6.0,
-      "expected_24h_mm": 20.0,
-      "max_pop": 100,
-      "level": "moderate",
-      "peak_level": "normal",
-      "h24_level": "moderate"
-    },
-    {
-      "lat": 0.641948,
-      "lon": 121.426263,
-      "peak_mm": 5.8,
-      "expected_24h_mm": 16.4,
+      "peak_mm": 6.8,
+      "expected_24h_mm": 18.4,
       "max_pop": 100,
       "level": "moderate",
       "peak_level": "normal",
@@ -100,28 +60,8 @@
     {
       "lat": 0.820464,
       "lon": 121.731157,
-      "peak_mm": 7.3,
-      "expected_24h_mm": 19.6,
-      "max_pop": 100,
-      "level": "moderate",
-      "peak_level": "normal",
-      "h24_level": "moderate"
-    },
-    {
-      "lat": 0.709036,
-      "lon": 121.545009,
-      "peak_mm": 7.3,
-      "expected_24h_mm": 17.5,
-      "max_pop": 100,
-      "level": "moderate",
-      "peak_level": "normal",
-      "h24_level": "moderate"
-    },
-    {
-      "lat": 0.713545,
-      "lon": 121.274773,
-      "peak_mm": 6.9,
-      "expected_24h_mm": 22.7,
+      "peak_mm": 8.7,
+      "expected_24h_mm": 23.4,
       "max_pop": 100,
       "level": "moderate",
       "peak_level": "normal",
@@ -130,28 +70,18 @@
     {
       "lat": 0.768192,
       "lon": 121.84526,
-      "peak_mm": 6.8,
-      "expected_24h_mm": 19.6,
+      "peak_mm": 10.3,
+      "expected_24h_mm": 25.8,
       "max_pop": 100,
       "level": "moderate",
-      "peak_level": "normal",
-      "h24_level": "moderate"
-    },
-    {
-      "lat": 0.484172,
-      "lon": 121.321123,
-      "peak_mm": 4.2,
-      "expected_24h_mm": 15.5,
-      "max_pop": 100,
-      "level": "moderate",
-      "peak_level": "normal",
+      "peak_level": "moderate",
       "h24_level": "moderate"
     },
     {
       "lat": 0.748587,
       "lon": 121.65774,
-      "peak_mm": 7.8,
-      "expected_24h_mm": 19.0,
+      "peak_mm": 6.4,
+      "expected_24h_mm": 17.2,
       "max_pop": 100,
       "level": "moderate",
       "peak_level": "normal",
@@ -159,19 +89,12 @@
     }
   ],
   "summary": [
-    "MODERATE: Peak 5.9 mm / 24h 20.8 mm @ (0.583, 121.292)",
-    "MODERATE: Peak 6.1 mm / 24h 18.6 mm @ (0.717, 121.967)",
-    "MODERATE: Peak 7.7 mm / 24h 18.8 mm @ (0.835, 121.595)",
-    "MODERATE: Peak 4.8 mm / 24h 15.5 mm @ (0.907, 121.833)",
-    "MODERATE: Peak 7.3 mm / 24h 17.7 mm @ (0.684, 121.751)",
-    "MODERATE: Peak 7.5 mm / 24h 18.9 mm @ (0.774, 121.391)",
-    "MODERATE: Peak 6.0 mm / 24h 20.0 mm @ (0.460, 121.133)",
-    "MODERATE: Peak 5.8 mm / 24h 16.4 mm @ (0.642, 121.426)",
-    "MODERATE: Peak 7.3 mm / 24h 19.6 mm @ (0.820, 121.731)",
-    "MODERATE: Peak 7.3 mm / 24h 17.5 mm @ (0.709, 121.545)",
-    "MODERATE: Peak 6.9 mm / 24h 22.7 mm @ (0.714, 121.275)",
-    "MODERATE: Peak 6.8 mm / 24h 19.6 mm @ (0.768, 121.845)",
-    "MODERATE: Peak 4.2 mm / 24h 15.5 mm @ (0.484, 121.321)",
-    "MODERATE: Peak 7.8 mm / 24h 19.0 mm @ (0.749, 121.658)"
+    "MODERATE: Peak 9.1 mm / 24h 21.9 mm @ (0.717, 121.967)",
+    "MODERATE: Peak 7.1 mm / 24h 18.4 mm @ (0.835, 121.595)",
+    "MODERATE: Peak 9.9 mm / 24h 24.2 mm @ (0.907, 121.833)",
+    "MODERATE: Peak 6.8 mm / 24h 18.4 mm @ (0.684, 121.751)",
+    "MODERATE: Peak 8.7 mm / 24h 23.4 mm @ (0.820, 121.731)",
+    "MODERATE: Peak 10.3 mm / 24h 25.8 mm @ (0.768, 121.845)",
+    "MODERATE: Peak 6.4 mm / 24h 17.2 mm @ (0.749, 121.658)"
   ]
 }
