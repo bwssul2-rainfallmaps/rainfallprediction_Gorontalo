@@ -705,7 +705,7 @@ def create_prediction_map():
     n_heavy = sum(1 for s in warning_stations if s["level"] == "heavy")
     if n_extreme or n_heavy:
         banner_color = "#b91c1c" if n_extreme else "#c2410c"
-        banner_text = f"Heavy rainfall: {n_extreme} extreme, {n_heavy} heavy station(s)"
+        banner_text = f"Heavy rainfall warning:<br>{n_extreme} extreme, {n_heavy} heavy station(s)"
         banner_html = f'''
         <div style="position:absolute; top:62px; left:12px; z-index:1001;
                     background:{banner_color}; color:white; padding:6px 12px;
