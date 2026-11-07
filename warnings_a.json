@@ -1,8 +1,8 @@
 {
   "map": "a",
   "area": "Limboto - Bolango - Bone Basin",
-  "generated": "07 November 2026 22:51",
-  "last_update": "2026-11-07T14:51:38Z",
+  "generated": "08 November 2026 07:36",
+  "last_update": "2026-11-07T23:36:32Z",
   "timezone": "UTC+8",
   "thresholds": {
     "peak_heavy_mm": 20.0,
@@ -15,53 +15,13 @@
   "has_warnings": true,
   "n_heavy": 0,
   "n_extreme": 0,
-  "n_moderate": 9,
+  "n_moderate": 4,
   "stations": [
     {
       "lat": 0.507739,
       "lon": 123.224852,
-      "peak_mm": 4.6,
-      "expected_24h_mm": 15.8,
-      "max_pop": 100,
-      "level": "moderate",
-      "peak_level": "normal",
-      "h24_level": "moderate"
-    },
-    {
-      "lat": 0.502984,
-      "lon": 123.62691,
-      "peak_mm": 6.1,
-      "expected_24h_mm": 26.6,
-      "max_pop": 100,
-      "level": "moderate",
-      "peak_level": "normal",
-      "h24_level": "moderate"
-    },
-    {
-      "lat": 0.583394,
-      "lon": 123.422561,
-      "peak_mm": 5.3,
-      "expected_24h_mm": 18.6,
-      "max_pop": 100,
-      "level": "moderate",
-      "peak_level": "normal",
-      "h24_level": "moderate"
-    },
-    {
-      "lat": 0.648886,
-      "lon": 123.295,
-      "peak_mm": 5.4,
-      "expected_24h_mm": 16.7,
-      "max_pop": 100,
-      "level": "moderate",
-      "peak_level": "normal",
-      "h24_level": "moderate"
-    },
-    {
-      "lat": 0.472134,
-      "lon": 123.499119,
-      "peak_mm": 5.4,
-      "expected_24h_mm": 20.5,
+      "peak_mm": 4.4,
+      "expected_24h_mm": 18.1,
       "max_pop": 100,
       "level": "moderate",
       "peak_level": "normal",
@@ -70,8 +30,8 @@
     {
       "lat": 0.481546,
       "lon": 123.363297,
-      "peak_mm": 4.9,
-      "expected_24h_mm": 18.7,
+      "peak_mm": 4.3,
+      "expected_24h_mm": 16.6,
       "max_pop": 100,
       "level": "moderate",
       "peak_level": "normal",
@@ -80,8 +40,8 @@
     {
       "lat": 0.60248,
       "lon": 123.200672,
-      "peak_mm": 5.5,
-      "expected_24h_mm": 16.1,
+      "peak_mm": 4.8,
+      "expected_24h_mm": 16.8,
       "max_pop": 100,
       "level": "moderate",
       "peak_level": "normal",
@@ -90,18 +50,8 @@
     {
       "lat": 0.565496,
       "lon": 123.328449,
-      "peak_mm": 5.3,
-      "expected_24h_mm": 18.9,
-      "max_pop": 100,
-      "level": "moderate",
-      "peak_level": "normal",
-      "h24_level": "moderate"
-    },
-    {
-      "lat": 0.560916,
-      "lon": 123.509104,
-      "peak_mm": 5.5,
-      "expected_24h_mm": 20.4,
+      "peak_mm": 4.5,
+      "expected_24h_mm": 17.3,
       "max_pop": 100,
       "level": "moderate",
       "peak_level": "normal",
@@ -109,14 +59,9 @@
     }
   ],
   "summary": [
-    "MODERATE: Peak 4.6 mm / 24h 15.8 mm @ (0.508, 123.225)",
-    "MODERATE: Peak 6.1 mm / 24h 26.6 mm @ (0.503, 123.627)",
-    "MODERATE: Peak 5.3 mm / 24h 18.6 mm @ (0.583, 123.423)",
-    "MODERATE: Peak 5.4 mm / 24h 16.7 mm @ (0.649, 123.295)",
-    "MODERATE: Peak 5.4 mm / 24h 20.5 mm @ (0.472, 123.499)",
-    "MODERATE: Peak 4.9 mm / 24h 18.7 mm @ (0.482, 123.363)",
-    "MODERATE: Peak 5.5 mm / 24h 16.1 mm @ (0.602, 123.201)",
-    "MODERATE: Peak 5.3 mm / 24h 18.9 mm @ (0.565, 123.328)",
-    "MODERATE: Peak 5.5 mm / 24h 20.4 mm @ (0.561, 123.509)"
+    "MODERATE: Peak 4.4 mm / 24h 18.1 mm @ (0.508, 123.225)",
+    "MODERATE: Peak 4.3 mm / 24h 16.6 mm @ (0.482, 123.363)",
+    "MODERATE: Peak 4.8 mm / 24h 16.8 mm @ (0.602, 123.201)",
+    "MODERATE: Peak 4.5 mm / 24h 17.3 mm @ (0.565, 123.328)"
   ]
 }
