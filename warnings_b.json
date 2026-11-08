@@ -1,8 +1,8 @@
 {
   "map": "b",
   "area": "Paguyaman",
-  "generated": "08 November 2026 23:02",
-  "last_update": "2026-11-08T15:02:43Z",
+  "generated": "09 November 2026 07:39",
+  "last_update": "2026-11-08T23:39:51Z",
   "timezone": "UTC+8",
   "thresholds": {
     "peak_heavy_mm": 20.0,
@@ -12,56 +12,10 @@
     "h24_extreme_mm": 50.0,
     "h24_moderate_mm": 15.0
   },
-  "has_warnings": true,
+  "has_warnings": false,
   "n_heavy": 0,
   "n_extreme": 0,
-  "n_moderate": 4,
-  "stations": [
-    {
-      "lat": 0.649374,
-      "lon": 122.158923,
-      "peak_mm": 5.2,
-      "expected_24h_mm": 15.5,
-      "max_pop": 100,
-      "level": "moderate",
-      "peak_level": "normal",
-      "h24_level": "moderate"
-    },
-    {
-      "lat": 0.630731,
-      "lon": 122.009214,
-      "peak_mm": 4.8,
-      "expected_24h_mm": 21.0,
-      "max_pop": 100,
-      "level": "moderate",
-      "peak_level": "normal",
-      "h24_level": "moderate"
-    },
-    {
-      "lat": 0.521151,
-      "lon": 122.053629,
-      "peak_mm": 3.6,
-      "expected_24h_mm": 16.2,
-      "max_pop": 100,
-      "level": "moderate",
-      "peak_level": "normal",
-      "h24_level": "moderate"
-    },
-    {
-      "lat": 0.677338,
-      "lon": 122.084069,
-      "peak_mm": 5.5,
-      "expected_24h_mm": 18.4,
-      "max_pop": 100,
-      "level": "moderate",
-      "peak_level": "normal",
-      "h24_level": "moderate"
-    }
-  ],
-  "summary": [
-    "MODERATE: Peak 5.2 mm / 24h 15.5 mm @ (0.649, 122.159)",
-    "MODERATE: Peak 4.8 mm / 24h 21.0 mm @ (0.631, 122.009)",
-    "MODERATE: Peak 3.6 mm / 24h 16.2 mm @ (0.521, 122.054)",
-    "MODERATE: Peak 5.5 mm / 24h 18.4 mm @ (0.677, 122.084)"
-  ]
+  "n_moderate": 0,
+  "stations": [],
+  "summary": []
 }

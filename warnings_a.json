@@ -1,8 +1,8 @@
 {
   "map": "a",
   "area": "Limboto - Bolango - Bone Basin",
-  "generated": "08 November 2026 23:01",
-  "last_update": "2026-11-08T15:01:36Z",
+  "generated": "09 November 2026 07:38",
+  "last_update": "2026-11-08T23:38:47Z",
   "timezone": "UTC+8",
   "thresholds": {
     "peak_heavy_mm": 20.0,
@@ -12,34 +12,10 @@
     "h24_extreme_mm": 50.0,
     "h24_moderate_mm": 15.0
   },
-  "has_warnings": true,
+  "has_warnings": false,
   "n_heavy": 0,
   "n_extreme": 0,
-  "n_moderate": 2,
-  "stations": [
-    {
-      "lat": 0.507739,
-      "lon": 123.224852,
-      "peak_mm": 4.7,
-      "expected_24h_mm": 16.9,
-      "max_pop": 100,
-      "level": "moderate",
-      "peak_level": "normal",
-      "h24_level": "moderate"
-    },
-    {
-      "lat": 0.392709,
-      "lon": 123.284547,
-      "peak_mm": 3.9,
-      "expected_24h_mm": 15.0,
-      "max_pop": 100,
-      "level": "moderate",
-      "peak_level": "normal",
-      "h24_level": "moderate"
-    }
-  ],
-  "summary": [
-    "MODERATE: Peak 4.7 mm / 24h 16.9 mm @ (0.508, 123.225)",
-    "MODERATE: Peak 3.9 mm / 24h 15.0 mm @ (0.393, 123.285)"
-  ]
+  "n_moderate": 0,
+  "stations": [],
+  "summary": []
 }
