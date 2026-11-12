@@ -1,8 +1,8 @@
 {
   "map": "a",
   "area": "Limboto - Bolango - Bone Basin",
-  "generated": "11 November 2026 23:04",
-  "last_update": "2026-11-11T15:04:34Z",
+  "generated": "12 November 2026 09:28",
+  "last_update": "2026-11-12T01:28:09Z",
   "timezone": "UTC+8",
   "thresholds": {
     "peak_heavy_mm": 20.0,
@@ -12,10 +12,67 @@
     "h24_extreme_mm": 50.0,
     "h24_moderate_mm": 15.0
   },
-  "has_warnings": false,
+  "has_warnings": true,
   "n_heavy": 0,
   "n_extreme": 0,
-  "n_moderate": 0,
-  "stations": [],
-  "summary": []
+  "n_moderate": 5,
+  "stations": [
+    {
+      "lat": 0.700981,
+      "lon": 123.164251,
+      "peak_mm": 5.9,
+      "expected_24h_mm": 16.2,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "normal",
+      "h24_level": "moderate"
+    },
+    {
+      "lat": 0.570415,
+      "lon": 123.107009,
+      "peak_mm": 5.9,
+      "expected_24h_mm": 15.9,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "normal",
+      "h24_level": "moderate"
+    },
+    {
+      "lat": 0.662549,
+      "lon": 123.0119,
+      "peak_mm": 5.7,
+      "expected_24h_mm": 16.6,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "normal",
+      "h24_level": "moderate"
+    },
+    {
+      "lat": 0.752228,
+      "lon": 123.080434,
+      "peak_mm": 5.5,
+      "expected_24h_mm": 16.4,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "normal",
+      "h24_level": "moderate"
+    },
+    {
+      "lat": 0.60248,
+      "lon": 123.200672,
+      "peak_mm": 6.2,
+      "expected_24h_mm": 16.4,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "normal",
+      "h24_level": "moderate"
+    }
+  ],
+  "summary": [
+    "MODERATE: Peak 5.9 mm / 24h 16.2 mm @ (0.701, 123.164)",
+    "MODERATE: Peak 5.9 mm / 24h 15.9 mm @ (0.570, 123.107)",
+    "MODERATE: Peak 5.7 mm / 24h 16.6 mm @ (0.663, 123.012)",
+    "MODERATE: Peak 5.5 mm / 24h 16.4 mm @ (0.752, 123.080)",
+    "MODERATE: Peak 6.2 mm / 24h 16.4 mm @ (0.602, 123.201)"
+  ]
 }

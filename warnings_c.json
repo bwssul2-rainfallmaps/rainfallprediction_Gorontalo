@@ -1,8 +1,8 @@
 {
   "map": "c",
   "area": "Randangan",
-  "generated": "11 November 2026 23:06",
-  "last_update": "2026-11-11T15:06:41Z",
+  "generated": "12 November 2026 09:30",
+  "last_update": "2026-11-12T01:30:20Z",
   "timezone": "UTC+8",
   "thresholds": {
     "peak_heavy_mm": 20.0,
@@ -12,10 +12,67 @@
     "h24_extreme_mm": 50.0,
     "h24_moderate_mm": 15.0
   },
-  "has_warnings": false,
+  "has_warnings": true,
   "n_heavy": 0,
   "n_extreme": 0,
-  "n_moderate": 0,
-  "stations": [],
-  "summary": []
+  "n_moderate": 5,
+  "stations": [
+    {
+      "lat": 0.716684,
+      "lon": 121.967408,
+      "peak_mm": 4.8,
+      "expected_24h_mm": 15.9,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "normal",
+      "h24_level": "moderate"
+    },
+    {
+      "lat": 0.83469,
+      "lon": 121.595142,
+      "peak_mm": 5.8,
+      "expected_24h_mm": 16.1,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "normal",
+      "h24_level": "moderate"
+    },
+    {
+      "lat": 0.906919,
+      "lon": 121.83341,
+      "peak_mm": 5.3,
+      "expected_24h_mm": 15.0,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "normal",
+      "h24_level": "moderate"
+    },
+    {
+      "lat": 0.820464,
+      "lon": 121.731157,
+      "peak_mm": 5.5,
+      "expected_24h_mm": 16.1,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "normal",
+      "h24_level": "moderate"
+    },
+    {
+      "lat": 0.768192,
+      "lon": 121.84526,
+      "peak_mm": 5.2,
+      "expected_24h_mm": 16.3,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "normal",
+      "h24_level": "moderate"
+    }
+  ],
+  "summary": [
+    "MODERATE: Peak 4.8 mm / 24h 15.9 mm @ (0.717, 121.967)",
+    "MODERATE: Peak 5.8 mm / 24h 16.1 mm @ (0.835, 121.595)",
+    "MODERATE: Peak 5.3 mm / 24h 15.0 mm @ (0.907, 121.833)",
+    "MODERATE: Peak 5.5 mm / 24h 16.1 mm @ (0.820, 121.731)",
+    "MODERATE: Peak 5.2 mm / 24h 16.3 mm @ (0.768, 121.845)"
+  ]
 }
