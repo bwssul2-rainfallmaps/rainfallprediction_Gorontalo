@@ -3,7 +3,7 @@ permissions:
   contents: write
 on:
   schedule:
-    - cron: '8 7,19 * * *' # updated every 12 hour since server is kinda bad rn
+    - cron: '8 6,18 * * *' # updated every 12 hour since server is kinda bad rn
   workflow_dispatch:
 
 jobs:
