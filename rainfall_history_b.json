@@ -26402,7 +26402,1063 @@
         }
       ],
       "unavailable_stations": []
+    },
+    {
+      "generated": "14 November 2026 07:28",
+      "last_update": "2026-11-13T23:28:58Z",
+      "timezone": "UTC+8",
+      "thresholds": {
+        "peak_heavy_mm": 20.0,
+        "peak_extreme_mm": 30.0,
+        "peak_moderate_mm": 10.0,
+        "h24_heavy_mm": 30.0,
+        "h24_extreme_mm": 50.0,
+        "h24_moderate_mm": 15.0
+      },
+      "stations": [
+        {
+          "lat": 0.649374,
+          "lon": 122.158923,
+          "max_pop": 100,
+          "peak_mm": 1.3,
+          "expected_24h_mm": 2.9,
+          "level": "normal",
+          "peak_level": "normal",
+          "h24_level": "normal",
+          "forecast": [
+            {
+              "time": "2026-11-14 08:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 11:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 14:00",
+              "pop": 51,
+              "rainfall": 0.6
+            },
+            {
+              "time": "2026-11-14 17:00",
+              "pop": 100,
+              "rainfall": 1.3
+            },
+            {
+              "time": "2026-11-14 20:00",
+              "pop": 100,
+              "rainfall": 0.83
+            },
+            {
+              "time": "2026-11-14 23:00",
+              "pop": 25,
+              "rainfall": 0.2
+            },
+            {
+              "time": "2026-11-15 02:00",
+              "pop": 1,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 05:00",
+              "pop": 0,
+              "rainfall": 0.0
+            }
+          ]
+        },
+        {
+          "lat": 0.668016,
+          "lon": 122.62302,
+          "max_pop": 100,
+          "peak_mm": 1.0,
+          "expected_24h_mm": 2.2,
+          "level": "normal",
+          "peak_level": "normal",
+          "h24_level": "normal",
+          "forecast": [
+            {
+              "time": "2026-11-14 08:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 11:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 14:00",
+              "pop": 23,
+              "rainfall": 0.37
+            },
+            {
+              "time": "2026-11-14 17:00",
+              "pop": 100,
+              "rainfall": 0.96
+            },
+            {
+              "time": "2026-11-14 20:00",
+              "pop": 100,
+              "rainfall": 0.57
+            },
+            {
+              "time": "2026-11-14 23:00",
+              "pop": 36,
+              "rainfall": 0.28
+            },
+            {
+              "time": "2026-11-15 02:00",
+              "pop": 10,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 05:00",
+              "pop": 0,
+              "rainfall": 0.0
+            }
+          ]
+        },
+        {
+          "lat": 0.845119,
+          "lon": 122.383486,
+          "max_pop": 100,
+          "peak_mm": 1.4,
+          "expected_24h_mm": 2.4,
+          "level": "normal",
+          "peak_level": "normal",
+          "h24_level": "normal",
+          "forecast": [
+            {
+              "time": "2026-11-14 08:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 11:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 14:00",
+              "pop": 90,
+              "rainfall": 0.83
+            },
+            {
+              "time": "2026-11-14 17:00",
+              "pop": 100,
+              "rainfall": 1.39
+            },
+            {
+              "time": "2026-11-14 20:00",
+              "pop": 100,
+              "rainfall": 0.18
+            },
+            {
+              "time": "2026-11-14 23:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 02:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 05:00",
+              "pop": 0,
+              "rainfall": 0.0
+            }
+          ]
+        },
+        {
+          "lat": 0.523573,
+          "lon": 122.398457,
+          "max_pop": 100,
+          "peak_mm": 0.9,
+          "expected_24h_mm": 2.0,
+          "level": "normal",
+          "peak_level": "normal",
+          "h24_level": "normal",
+          "forecast": [
+            {
+              "time": "2026-11-14 08:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 11:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 14:00",
+              "pop": 34,
+              "rainfall": 0.14
+            },
+            {
+              "time": "2026-11-14 17:00",
+              "pop": 56,
+              "rainfall": 0.23
+            },
+            {
+              "time": "2026-11-14 20:00",
+              "pop": 100,
+              "rainfall": 0.87
+            },
+            {
+              "time": "2026-11-14 23:00",
+              "pop": 79,
+              "rainfall": 0.72
+            },
+            {
+              "time": "2026-11-15 02:00",
+              "pop": 52,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 05:00",
+              "pop": 2,
+              "rainfall": 0.0
+            }
+          ]
+        },
+        {
+          "lat": 0.677338,
+          "lon": 122.338574,
+          "max_pop": 100,
+          "peak_mm": 1.3,
+          "expected_24h_mm": 2.8,
+          "level": "normal",
+          "peak_level": "normal",
+          "h24_level": "normal",
+          "forecast": [
+            {
+              "time": "2026-11-14 08:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 11:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 14:00",
+              "pop": 65,
+              "rainfall": 0.7
+            },
+            {
+              "time": "2026-11-14 17:00",
+              "pop": 100,
+              "rainfall": 1.33
+            },
+            {
+              "time": "2026-11-14 20:00",
+              "pop": 100,
+              "rainfall": 0.58
+            },
+            {
+              "time": "2026-11-14 23:00",
+              "pop": 27,
+              "rainfall": 0.18
+            },
+            {
+              "time": "2026-11-15 02:00",
+              "pop": 2,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 05:00",
+              "pop": 0,
+              "rainfall": 0.0
+            }
+          ]
+        },
+        {
+          "lat": 0.630731,
+          "lon": 122.009214,
+          "max_pop": 100,
+          "peak_mm": 1.3,
+          "expected_24h_mm": 3.1,
+          "level": "normal",
+          "peak_level": "normal",
+          "h24_level": "normal",
+          "forecast": [
+            {
+              "time": "2026-11-14 08:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 11:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 14:00",
+              "pop": 33,
+              "rainfall": 0.45
+            },
+            {
+              "time": "2026-11-14 17:00",
+              "pop": 100,
+              "rainfall": 1.3
+            },
+            {
+              "time": "2026-11-14 20:00",
+              "pop": 100,
+              "rainfall": 1.19
+            },
+            {
+              "time": "2026-11-14 23:00",
+              "pop": 33,
+              "rainfall": 0.17
+            },
+            {
+              "time": "2026-11-15 02:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 05:00",
+              "pop": 0,
+              "rainfall": 0.0
+            }
+          ]
+        },
+        {
+          "lat": 0.518877,
+          "lon": 122.233778,
+          "max_pop": 100,
+          "peak_mm": 1.3,
+          "expected_24h_mm": 2.7,
+          "level": "normal",
+          "peak_level": "normal",
+          "h24_level": "normal",
+          "forecast": [
+            {
+              "time": "2026-11-14 08:00",
+              "pop": 2,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 11:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 14:00",
+              "pop": 35,
+              "rainfall": 0.26
+            },
+            {
+              "time": "2026-11-14 17:00",
+              "pop": 72,
+              "rainfall": 0.51
+            },
+            {
+              "time": "2026-11-14 20:00",
+              "pop": 100,
+              "rainfall": 1.32
+            },
+            {
+              "time": "2026-11-14 23:00",
+              "pop": 72,
+              "rainfall": 0.59
+            },
+            {
+              "time": "2026-11-15 02:00",
+              "pop": 28,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 05:00",
+              "pop": 11,
+              "rainfall": 0.0
+            }
+          ]
+        },
+        {
+          "lat": 0.785022,
+          "lon": 122.488283,
+          "max_pop": 100,
+          "peak_mm": 1.3,
+          "expected_24h_mm": 2.4,
+          "level": "normal",
+          "peak_level": "normal",
+          "h24_level": "normal",
+          "forecast": [
+            {
+              "time": "2026-11-14 08:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 11:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 14:00",
+              "pop": 73,
+              "rainfall": 0.75
+            },
+            {
+              "time": "2026-11-14 17:00",
+              "pop": 100,
+              "rainfall": 1.32
+            },
+            {
+              "time": "2026-11-14 20:00",
+              "pop": 100,
+              "rainfall": 0.31
+            },
+            {
+              "time": "2026-11-14 23:00",
+              "pop": 3,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 02:00",
+              "pop": 2,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 05:00",
+              "pop": 0,
+              "rainfall": 0.0
+            }
+          ]
+        },
+        {
+          "lat": 0.779871,
+          "lon": 122.233778,
+          "max_pop": 100,
+          "peak_mm": 1.6,
+          "expected_24h_mm": 2.6,
+          "level": "normal",
+          "peak_level": "normal",
+          "h24_level": "normal",
+          "forecast": [
+            {
+              "time": "2026-11-14 08:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 11:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 14:00",
+              "pop": 95,
+              "rainfall": 0.82
+            },
+            {
+              "time": "2026-11-14 17:00",
+              "pop": 100,
+              "rainfall": 1.57
+            },
+            {
+              "time": "2026-11-14 20:00",
+              "pop": 100,
+              "rainfall": 0.26
+            },
+            {
+              "time": "2026-11-14 23:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 02:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 05:00",
+              "pop": 0,
+              "rainfall": 0.0
+            }
+          ]
+        },
+        {
+          "lat": 0.584125,
+          "lon": 122.518224,
+          "max_pop": 100,
+          "peak_mm": 0.8,
+          "expected_24h_mm": 2.1,
+          "level": "normal",
+          "peak_level": "normal",
+          "h24_level": "normal",
+          "forecast": [
+            {
+              "time": "2026-11-14 08:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 11:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 14:00",
+              "pop": 39,
+              "rainfall": 0.23
+            },
+            {
+              "time": "2026-11-14 17:00",
+              "pop": 79,
+              "rainfall": 0.54
+            },
+            {
+              "time": "2026-11-14 20:00",
+              "pop": 100,
+              "rainfall": 0.75
+            },
+            {
+              "time": "2026-11-14 23:00",
+              "pop": 64,
+              "rainfall": 0.53
+            },
+            {
+              "time": "2026-11-15 02:00",
+              "pop": 36,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 05:00",
+              "pop": 0,
+              "rainfall": 0.0
+            }
+          ]
+        },
+        {
+          "lat": 0.630731,
+          "lon": 122.428399,
+          "max_pop": 100,
+          "peak_mm": 0.8,
+          "expected_24h_mm": 2.3,
+          "level": "normal",
+          "peak_level": "normal",
+          "h24_level": "normal",
+          "forecast": [
+            {
+              "time": "2026-11-14 08:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 11:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 14:00",
+              "pop": 41,
+              "rainfall": 0.42
+            },
+            {
+              "time": "2026-11-14 17:00",
+              "pop": 85,
+              "rainfall": 0.76
+            },
+            {
+              "time": "2026-11-14 20:00",
+              "pop": 100,
+              "rainfall": 0.68
+            },
+            {
+              "time": "2026-11-14 23:00",
+              "pop": 51,
+              "rainfall": 0.44
+            },
+            {
+              "time": "2026-11-15 02:00",
+              "pop": 24,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 05:00",
+              "pop": 0,
+              "rainfall": 0.0
+            }
+          ]
+        },
+        {
+          "lat": 0.584125,
+          "lon": 122.308632,
+          "max_pop": 100,
+          "peak_mm": 1.0,
+          "expected_24h_mm": 2.6,
+          "level": "normal",
+          "peak_level": "normal",
+          "h24_level": "normal",
+          "forecast": [
+            {
+              "time": "2026-11-14 08:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 11:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 14:00",
+              "pop": 35,
+              "rainfall": 0.39
+            },
+            {
+              "time": "2026-11-14 17:00",
+              "pop": 81,
+              "rainfall": 0.74
+            },
+            {
+              "time": "2026-11-14 20:00",
+              "pop": 100,
+              "rainfall": 0.97
+            },
+            {
+              "time": "2026-11-14 23:00",
+              "pop": 57,
+              "rainfall": 0.49
+            },
+            {
+              "time": "2026-11-15 02:00",
+              "pop": 25,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 05:00",
+              "pop": 0,
+              "rainfall": 0.0
+            }
+          ]
+        },
+        {
+          "lat": 0.751907,
+          "lon": 122.398457,
+          "max_pop": 100,
+          "peak_mm": 1.4,
+          "expected_24h_mm": 2.6,
+          "level": "normal",
+          "peak_level": "normal",
+          "h24_level": "normal",
+          "forecast": [
+            {
+              "time": "2026-11-14 08:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 11:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 14:00",
+              "pop": 84,
+              "rainfall": 0.81
+            },
+            {
+              "time": "2026-11-14 17:00",
+              "pop": 100,
+              "rainfall": 1.41
+            },
+            {
+              "time": "2026-11-14 20:00",
+              "pop": 100,
+              "rainfall": 0.35
+            },
+            {
+              "time": "2026-11-14 23:00",
+              "pop": 9,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 02:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 05:00",
+              "pop": 0,
+              "rainfall": 0.0
+            }
+          ]
+        },
+        {
+          "lat": 0.658695,
+          "lon": 122.248749,
+          "max_pop": 100,
+          "peak_mm": 1.2,
+          "expected_24h_mm": 2.9,
+          "level": "normal",
+          "peak_level": "normal",
+          "h24_level": "normal",
+          "forecast": [
+            {
+              "time": "2026-11-14 08:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 11:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 14:00",
+              "pop": 55,
+              "rainfall": 0.62
+            },
+            {
+              "time": "2026-11-14 17:00",
+              "pop": 98,
+              "rainfall": 1.24
+            },
+            {
+              "time": "2026-11-14 20:00",
+              "pop": 100,
+              "rainfall": 0.77
+            },
+            {
+              "time": "2026-11-14 23:00",
+              "pop": 34,
+              "rainfall": 0.24
+            },
+            {
+              "time": "2026-11-15 02:00",
+              "pop": 4,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 05:00",
+              "pop": 0,
+              "rainfall": 0.0
+            }
+          ]
+        },
+        {
+          "lat": 0.521151,
+          "lon": 122.053629,
+          "max_pop": 100,
+          "peak_mm": 1.5,
+          "expected_24h_mm": 2.8,
+          "level": "normal",
+          "peak_level": "normal",
+          "h24_level": "normal",
+          "forecast": [
+            {
+              "time": "2026-11-14 08:00",
+              "pop": 12,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 11:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 14:00",
+              "pop": 25,
+              "rainfall": 0.29
+            },
+            {
+              "time": "2026-11-14 17:00",
+              "pop": 90,
+              "rainfall": 0.73
+            },
+            {
+              "time": "2026-11-14 20:00",
+              "pop": 100,
+              "rainfall": 1.46
+            },
+            {
+              "time": "2026-11-14 23:00",
+              "pop": 42,
+              "rainfall": 0.36
+            },
+            {
+              "time": "2026-11-15 02:00",
+              "pop": 5,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 05:00",
+              "pop": 19,
+              "rainfall": 0.0
+            }
+          ]
+        },
+        {
+          "lat": 0.50302,
+          "lon": 122.323603,
+          "max_pop": 100,
+          "peak_mm": 1.1,
+          "expected_24h_mm": 2.4,
+          "level": "normal",
+          "peak_level": "normal",
+          "h24_level": "normal",
+          "forecast": [
+            {
+              "time": "2026-11-14 08:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 11:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 14:00",
+              "pop": 35,
+              "rainfall": 0.19
+            },
+            {
+              "time": "2026-11-14 17:00",
+              "pop": 61,
+              "rainfall": 0.37
+            },
+            {
+              "time": "2026-11-14 20:00",
+              "pop": 100,
+              "rainfall": 1.12
+            },
+            {
+              "time": "2026-11-14 23:00",
+              "pop": 77,
+              "rainfall": 0.69
+            },
+            {
+              "time": "2026-11-15 02:00",
+              "pop": 45,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 05:00",
+              "pop": 5,
+              "rainfall": 0.0
+            }
+          ]
+        },
+        {
+          "lat": 0.733265,
+          "lon": 122.158923,
+          "max_pop": 100,
+          "peak_mm": 1.6,
+          "expected_24h_mm": 2.7,
+          "level": "normal",
+          "peak_level": "normal",
+          "h24_level": "normal",
+          "forecast": [
+            {
+              "time": "2026-11-14 08:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 11:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 14:00",
+              "pop": 81,
+              "rainfall": 0.78
+            },
+            {
+              "time": "2026-11-14 17:00",
+              "pop": 100,
+              "rainfall": 1.59
+            },
+            {
+              "time": "2026-11-14 20:00",
+              "pop": 100,
+              "rainfall": 0.37
+            },
+            {
+              "time": "2026-11-14 23:00",
+              "pop": 2,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 02:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 05:00",
+              "pop": 0,
+              "rainfall": 0.0
+            }
+          ]
+        },
+        {
+          "lat": 0.789192,
+          "lon": 122.323603,
+          "max_pop": 100,
+          "peak_mm": 1.5,
+          "expected_24h_mm": 2.6,
+          "level": "normal",
+          "peak_level": "normal",
+          "h24_level": "normal",
+          "forecast": [
+            {
+              "time": "2026-11-14 08:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 11:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 14:00",
+              "pop": 95,
+              "rainfall": 0.83
+            },
+            {
+              "time": "2026-11-14 17:00",
+              "pop": 100,
+              "rainfall": 1.54
+            },
+            {
+              "time": "2026-11-14 20:00",
+              "pop": 100,
+              "rainfall": 0.24
+            },
+            {
+              "time": "2026-11-14 23:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 02:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 05:00",
+              "pop": 0,
+              "rainfall": 0.0
+            }
+          ]
+        },
+        {
+          "lat": 0.677338,
+          "lon": 122.084069,
+          "max_pop": 100,
+          "peak_mm": 1.5,
+          "expected_24h_mm": 2.9,
+          "level": "normal",
+          "peak_level": "normal",
+          "h24_level": "normal",
+          "forecast": [
+            {
+              "time": "2026-11-14 08:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 11:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 14:00",
+              "pop": 57,
+              "rainfall": 0.65
+            },
+            {
+              "time": "2026-11-14 17:00",
+              "pop": 100,
+              "rainfall": 1.46
+            },
+            {
+              "time": "2026-11-14 20:00",
+              "pop": 100,
+              "rainfall": 0.72
+            },
+            {
+              "time": "2026-11-14 23:00",
+              "pop": 30,
+              "rainfall": 0.1
+            },
+            {
+              "time": "2026-11-15 02:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 05:00",
+              "pop": 0,
+              "rainfall": 0.0
+            }
+          ]
+        },
+        {
+          "lat": 0.668016,
+          "lon": 122.533195,
+          "max_pop": 100,
+          "peak_mm": 1.0,
+          "expected_24h_mm": 2.3,
+          "level": "normal",
+          "peak_level": "normal",
+          "h24_level": "normal",
+          "forecast": [
+            {
+              "time": "2026-11-14 08:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 11:00",
+              "pop": 0,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-14 14:00",
+              "pop": 42,
+              "rainfall": 0.51
+            },
+            {
+              "time": "2026-11-14 17:00",
+              "pop": 100,
+              "rainfall": 1.01
+            },
+            {
+              "time": "2026-11-14 20:00",
+              "pop": 100,
+              "rainfall": 0.54
+            },
+            {
+              "time": "2026-11-14 23:00",
+              "pop": 34,
+              "rainfall": 0.24
+            },
+            {
+              "time": "2026-11-15 02:00",
+              "pop": 6,
+              "rainfall": 0.0
+            },
+            {
+              "time": "2026-11-15 05:00",
+              "pop": 0,
+              "rainfall": 0.0
+            }
+          ]
+        }
+      ],
+      "unavailable_stations": []
     }
   ],
-  "last_update": "2026-11-13T00:10:27Z"
+  "last_update": "2026-11-13T23:28:58Z"
 }
