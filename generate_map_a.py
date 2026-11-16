@@ -76,6 +76,37 @@ def embed_image_to_base64(image_path):
 
 
 # ────────────────────────────────────────────────
+# Helper: Branca for css injection
+# ────────────────────────────────────────────────    
+from branca.element import Element
+
+def style_map_controls(m):
+    css = """
+    <style>
+        /* Top-Right: Layer Control (Basemaps & Overlays) */
+        .leaflet-control-layers {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+            font-size: 13px !important;
+            color: #333333 !important;
+        }
+
+        /* Bottom-Right: Attribution Bar */
+        .leaflet-control-attribution {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+            font-size: 11px !important;
+            color: #555555 !important;
+        }
+        
+        /* Optional: Style the links inside the attribution bar */
+        .leaflet-control-attribution a {
+            color: #0066cc !important;
+            text-decoration: none;
+        }
+    </style>
+    """
+    m.get_root().header.add_child(Element(css))
+
+# ────────────────────────────────────────────────
 # API Helpers
 # ────────────────────────────────────────────────
 @retry(stop=stop_after_attempt(3), wait=wait_fixed(2))
@@ -509,10 +540,11 @@ def add_basemaps(m):
     folium.TileLayer(
         tiles="https://tile.openstreetmap.org/{z}/{x}/{y}.png",
         attr="&copy; OpenStreetMap contributors",
-        name="OpenStreetMap",
+        attr='© OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team',,
         max_zoom=19,
         show=True,
     ).add_to(m)
+    style_map_controls(m)
     
 # ────────────────────────────────────────────────
 # Prediction Map
