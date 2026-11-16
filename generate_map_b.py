@@ -19,6 +19,7 @@ from tenacity import retry, stop_after_attempt, wait_fixed
 import numpy as np
 import matplotlib.pyplot as plt
 from folium.plugins import HeatMap
+from branca.element import Element
 
 logging.basicConfig(
     filename="rainfall_maps_b.log",
@@ -73,6 +74,32 @@ def embed_image_to_base64(image_path):
         return f"data:image/png;base64,{encoded}"
 
 
+def style_map_controls(m):
+    css = """
+    <style>
+        /* Top-Right: Layer Control (Basemaps & Overlays) */
+        .leaflet-control-layers {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+            font-size: 11px !important;
+            color: #333333 !important;
+        }
+
+        /* Bottom-Right: Attribution Bar */
+        .leaflet-control-attribution {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+            font-size: 11px !important;
+            color: #555555 !important;
+        }
+        
+        /* Optional: Style the links inside the attribution bar */
+        .leaflet-control-attribution a {
+            color: #0066cc !important;
+            text-decoration: none;
+        }
+    </style>
+    """
+    m.get_root().header.add_child(Element(css))
+    
 # ────────────────────────────────────────────────
 # API Helpers
 # ────────────────────────────────────────────────
@@ -517,6 +544,7 @@ def add_basemaps(m):
         max_zoom=19,
         show=True,
     ).add_to(m)
+    style_map_controls(m)
 
 # ────────────────────────────────────────────────
 # Prediction Map
