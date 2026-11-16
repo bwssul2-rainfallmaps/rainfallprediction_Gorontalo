@@ -518,10 +518,17 @@ LEVEL_STYLE = {
 def add_basemaps(m):
     """First layer added is the one shown on load."""
     folium.TileLayer(
+        tiles="https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+        attr="&copy; OpenStreetMap contributors",
+        name="OpenStreetMap",
+        max_zoom=19,
+        show=False,
+    ).add_to(m)
+    folium.TileLayer(
         tiles="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
-        attr="© OpenStreetMap contributors",
+        attr='© OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team',
         name="OSM HOT",
-        show=True,
+        show=False,
     ).add_to(m)
     folium.TileLayer(
         tiles="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
