@@ -519,7 +519,7 @@ def add_basemaps(m):
     """First layer added is the one shown on load."""
     folium.TileLayer(
         tiles="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
-        attr='© OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team',
+        attr="© OpenStreetMap contributors",
         name="OSM HOT",
         show=True,
     ).add_to(m)
@@ -540,7 +540,7 @@ def add_basemaps(m):
     folium.TileLayer(
         tiles="https://tile.openstreetmap.org/{z}/{x}/{y}.png",
         attr="&copy; OpenStreetMap contributors",
-        attr='© OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team',
+        name="OpenStreetMap",
         max_zoom=19,
         show=True,
     ).add_to(m)
