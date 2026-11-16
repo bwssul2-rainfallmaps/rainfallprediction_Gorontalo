@@ -540,7 +540,7 @@ def add_basemaps(m):
     folium.TileLayer(
         tiles="https://tile.openstreetmap.org/{z}/{x}/{y}.png",
         attr="&copy; OpenStreetMap contributors",
-        attr='© OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team',,
+        attr='© OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team',
         max_zoom=19,
         show=True,
     ).add_to(m)
