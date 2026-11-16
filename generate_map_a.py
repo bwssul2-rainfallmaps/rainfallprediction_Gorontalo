@@ -522,7 +522,7 @@ def add_basemaps(m):
         attr="&copy; OpenStreetMap contributors",
         name="OpenStreetMap",
         max_zoom=19,
-        show=False,
+        show=True,
     ).add_to(m)
     folium.TileLayer(
         tiles="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
@@ -543,13 +543,6 @@ def add_basemaps(m):
         name="Esri Imagery",
         max_zoom=19,
         show=False,
-    ).add_to(m)
-    folium.TileLayer(
-        tiles="https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-        attr="&copy; OpenStreetMap contributors",
-        name="OpenStreetMap",
-        max_zoom=19,
-        show=True,
     ).add_to(m)
     style_map_controls(m)
     
