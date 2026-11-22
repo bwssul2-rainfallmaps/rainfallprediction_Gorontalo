@@ -1,8 +1,8 @@
 {
   "map": "b",
   "area": "Paguyaman",
-  "generated": "22 November 2026 22:28",
-  "last_update": "2026-11-22T14:28:16Z",
+  "generated": "23 November 2026 07:32",
+  "last_update": "2026-11-22T23:32:51Z",
   "timezone": "UTC+8",
   "thresholds": {
     "peak_heavy_mm": 20.0,
@@ -12,10 +12,23 @@
     "h24_extreme_mm": 50.0,
     "h24_moderate_mm": 15.0
   },
-  "has_warnings": false,
+  "has_warnings": true,
   "n_heavy": 0,
   "n_extreme": 0,
-  "n_moderate": 0,
-  "stations": [],
-  "summary": []
+  "n_moderate": 1,
+  "stations": [
+    {
+      "lat": 0.521151,
+      "lon": 122.053629,
+      "peak_mm": 4.9,
+      "expected_24h_mm": 15.5,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "normal",
+      "h24_level": "moderate"
+    }
+  ],
+  "summary": [
+    "MODERATE: Peak 4.9 mm / 24h 15.5 mm @ (0.521, 122.054)"
+  ]
 }
