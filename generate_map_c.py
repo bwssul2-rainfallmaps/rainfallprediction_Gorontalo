@@ -515,7 +515,7 @@ def add_basemaps(m):
         attr="&copy; OpenStreetMap contributors",
         name="OpenStreetMap",
         max_zoom=19,
-        show=False,
+        show=True,
     ).add_to(m)
     folium.TileLayer(
         tiles="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
