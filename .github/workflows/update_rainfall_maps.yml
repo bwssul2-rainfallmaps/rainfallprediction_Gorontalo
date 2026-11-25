@@ -68,7 +68,7 @@ jobs:
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
 
-          git add *.html colorbar_*.png idw_*.png warnings_*.json rainfall_history_*.json || true
+          git add *.html colorbar_*.png idw_*.png warnings_*.json rainfall_history_*.json canary_state_*.txt || true
 
           if git diff --cached --quiet; then
             echo "No changes to commit"
@@ -78,3 +78,4 @@ jobs:
             git push origin main
             echo "✅ Changes pushed"
           fi
+
