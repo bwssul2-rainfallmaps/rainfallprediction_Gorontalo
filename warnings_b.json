@@ -1,8 +1,8 @@
 {
   "map": "b",
   "area": "Paguyaman",
-  "generated": "25 November 2026 01:28",
-  "last_update": "2026-11-24T17:29:01Z",
+  "generated": "25 November 2026 10:14",
+  "last_update": "2026-11-25T02:14:25Z",
   "timezone": "UTC+8",
   "thresholds": {
     "peak_heavy_mm": 20.0,
@@ -12,10 +12,78 @@
     "h24_extreme_mm": 50.0,
     "h24_moderate_mm": 15.0
   },
-  "has_warnings": false,
+  "has_warnings": true,
   "n_heavy": 0,
   "n_extreme": 0,
-  "n_moderate": 0,
-  "stations": [],
-  "summary": []
+  "n_moderate": 6,
+  "stations": [
+    {
+      "lat": 0.845119,
+      "lon": 122.383486,
+      "peak_mm": 7.7,
+      "expected_24h_mm": 19.6,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "normal",
+      "h24_level": "moderate"
+    },
+    {
+      "lat": 0.785022,
+      "lon": 122.488283,
+      "peak_mm": 7.4,
+      "expected_24h_mm": 17.6,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "normal",
+      "h24_level": "moderate"
+    },
+    {
+      "lat": 0.779871,
+      "lon": 122.233778,
+      "peak_mm": 7.7,
+      "expected_24h_mm": 18.4,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "normal",
+      "h24_level": "moderate"
+    },
+    {
+      "lat": 0.751907,
+      "lon": 122.398457,
+      "peak_mm": 7.3,
+      "expected_24h_mm": 17.3,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "normal",
+      "h24_level": "moderate"
+    },
+    {
+      "lat": 0.733265,
+      "lon": 122.158923,
+      "peak_mm": 7.5,
+      "expected_24h_mm": 17.2,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "normal",
+      "h24_level": "moderate"
+    },
+    {
+      "lat": 0.789192,
+      "lon": 122.323603,
+      "peak_mm": 7.6,
+      "expected_24h_mm": 18.3,
+      "max_pop": 100,
+      "level": "moderate",
+      "peak_level": "normal",
+      "h24_level": "moderate"
+    }
+  ],
+  "summary": [
+    "MODERATE: Peak 7.7 mm / 24h 19.6 mm @ (0.845, 122.383)",
+    "MODERATE: Peak 7.4 mm / 24h 17.6 mm @ (0.785, 122.488)",
+    "MODERATE: Peak 7.7 mm / 24h 18.4 mm @ (0.780, 122.234)",
+    "MODERATE: Peak 7.3 mm / 24h 17.3 mm @ (0.752, 122.398)",
+    "MODERATE: Peak 7.5 mm / 24h 17.2 mm @ (0.733, 122.159)",
+    "MODERATE: Peak 7.6 mm / 24h 18.3 mm @ (0.789, 122.324)"
+  ]
 }
