@@ -1,15 +1,17 @@
 """
 Improved Weather Map Generation script for location a: Limboto - Bolango - Bone Basin Area
+- Canary check (3 sample points) before full API download
 - Heavy rainfall warnings (peak 3h + expected 24h)
 - Safe rivers layer (no crash if GeoJSON missing)
 - Writes warnings_a.json for the dashboard sidebar
-- Better local / GitHub compatibility
+- Mobile-friendly controls, touch-draggable collapsible legends, and responsive popups
 """
 
 import folium
 import requests
 import json
 import os
+import hashlib
 import logging
 import tempfile
 import shutil
@@ -19,6 +21,7 @@ from tenacity import retry, stop_after_attempt, wait_fixed
 import numpy as np
 import matplotlib.pyplot as plt
 from folium.plugins import HeatMap
+from branca.element import Element
 
 logging.basicConfig(
     filename="rainfall_maps_a.log",
@@ -35,11 +38,7 @@ CACHE_DURATION = 3600
 FORECAST_INTERVALS = 8                     # 8 × 3h = 24h
 TIMEZONE_OFFSET = timedelta(hours=8)       # WITA / Asia/Makassar
 TIMEZONE_LABEL = "UTC+8"
-
-# Do not use tile.openstreetmap.org as the default. Those servers return
-# HTTP 403 ("Access blocked") when the HTML is opened as a local file,
-# because file:// sends no Referer. CARTO and Esri allow that. OSM is still
-# available in the layer control for GitHub Pages.
+CANARY_STATE_FILE = "canary_state_a.txt"
 
 # ---------- Heavy rainfall thresholds (mm) ----------
 THRESHOLD_PEAK_MODERATE = 10.0   # mm in any 3-hour period → Moderate
@@ -47,7 +46,7 @@ THRESHOLD_PEAK_HEAVY   = 20.0   # mm in any 3-hour period → Heavy
 THRESHOLD_PEAK_EXTREME = 30.0   # mm in any 3-hour period → Very Heavy / Extreme
 THRESHOLD_24H_MODERATE = 15.0   # expected 24h rainfall → Moderate
 THRESHOLD_24H_HEAVY    = 30.0   # expected 24h rainfall → Heavy
-THRESHOLD_24H_EXTREME  = 50.0  # expected 24h rainfall → Very Heavy
+THRESHOLD_24H_EXTREME  = 50.0   # expected 24h rainfall → Very Heavy
 
 LOCATIONS = [
     (0.507739,123.224852),(0.531979,122.720655),(0.502984,123.626910),(0.777981,122.856571),
@@ -76,44 +75,123 @@ def embed_image_to_base64(image_path):
 
 
 # ────────────────────────────────────────────────
-# Helper: Branca for css injection
-# ────────────────────────────────────────────────    
-from branca.element import Element
-
+# Helper: Branca for mobile-responsive CSS injection
+# ────────────────────────────────────────────────
 def style_map_controls(m):
+    viewport_meta = '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />'
+    m.get_root().header.add_child(Element(viewport_meta))
+
     css = """
     <style>
-        /* Top-Right: Layer Control (Basemaps & Overlays) */
         .leaflet-control-layers {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
             font-size: 13px !important;
             color: #333333 !important;
         }
-
-        /* Bottom-Right: Attribution Bar */
         .leaflet-control-attribution {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
             font-size: 11px !important;
             color: #555555 !important;
         }
-        
-        /* Optional: Style the links inside the attribution bar */
         .leaflet-control-attribution a {
             color: #0066cc !important;
             text-decoration: none;
+        }
+
+        /* Mobile-Friendly Adjustments */
+        @media (max-width: 768px) {
+            /* Larger touch targets for zoom buttons */
+            .leaflet-touch .leaflet-bar a {
+                width: 36px !important;
+                height: 36px !important;
+                line-height: 36px !important;
+                font-size: 20px !important;
+            }
+
+            /* Keep title bar clear of top-left zoom and top-right layer buttons */
+            .map-title-banner {
+                max-width: calc(100vw - 115px) !important;
+                padding: 4px 8px !important;
+            }
+            .map-title-banner .main-title {
+                font-size: 13px !important;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .map-title-banner .sub-title {
+                font-size: 9.5px !important;
+            }
+
+            /* Shift warning banner below taller mobile zoom buttons */
+            .map-warning-banner {
+                top: 92px !important;
+                left: 10px !important;
+                max-width: calc(100vw - 20px) !important;
+                font-size: 12px !important;
+            }
+
+            /* Constrain popups to fit narrow screens cleanly */
+            .leaflet-popup-content-wrapper {
+                max-width: 85vw !important;
+            }
+            .leaflet-popup-content {
+                max-width: 78vw !important;
+                max-height: 45vh !important;
+                overflow-y: auto !important;
+                margin: 10px !important;
+                font-size: 12px !important;
+            }
+
+            /* Prevent expanded layer menu from overflowing */
+            .leaflet-control-layers-expanded {
+                max-height: 50vh !important;
+                overflow-y: auto !important;
+            }
         }
     </style>
     """
     m.get_root().header.add_child(Element(css))
 
+
 # ────────────────────────────────────────────────
-# API Helpers
+# API & Canary Check Helpers
 # ────────────────────────────────────────────────
 @retry(stop=stop_after_attempt(3), wait=wait_fixed(2))
 def fetch_api_data(url):
     resp = requests.get(url, timeout=12)
     resp.raise_for_status()
     return resp.json()
+
+
+def has_weather_changed(locations):
+    """Checks 3 spread-out sample points before downloading the full basin."""
+    sample_coords = [locations[0], locations[len(locations) // 2], locations[-1]]
+    fingerprint = []
+
+    for lat, lon in sample_coords:
+        url = f"https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API_KEY}&units=metric"
+        try:
+            data = fetch_api_data(url)
+            slice_data = [
+                (item["dt"], round(item.get("pop", 0), 2), round(item.get("rain", {}).get("3h", 0.0), 1))
+                for item in data.get("list", [])[:FORECAST_INTERVALS]
+            ]
+            fingerprint.append(slice_data)
+        except Exception as e:
+            logging.warning(f"Canary check failed ({e}), forcing full update.")
+            return True
+
+    current_hash = hashlib.md5(json.dumps(fingerprint).encode("utf-8")).hexdigest()
+
+    if os.path.exists(CANARY_STATE_FILE):
+        with open(CANARY_STATE_FILE, "r", encoding="utf-8") as f:
+            if f.read().strip() == current_hash:
+                return False
+
+    with open(CANARY_STATE_FILE, "w", encoding="utf-8") as f:
+        f.write(current_hash)
+    return True
 
 
 def load_cache(cache_file):
@@ -284,7 +362,6 @@ def add_rivers_layer(m, geojson_path="RBI_Sulawesi2_sungai.geojson", name="River
         print("✅ Rivers layer added successfully!")
     except Exception as e:
         print(f"❌ Failed to add rivers layer: {e}")
-        # Minimal fallback – no tooltip
         try:
             with open(geojson_path, encoding="utf-8") as f:
                 rivers_data = json.load(f)
@@ -299,80 +376,78 @@ def add_rivers_layer(m, geojson_path="RBI_Sulawesi2_sungai.geojson", name="River
 
 
 # ────────────────────────────────────────────────
-# Draggable legend + colorbar helpers
+# Touch & Mouse Draggable Legend Helper
 # ────────────────────────────────────────────────
 def add_draggable_legend(m, html_content: str, div_id: str):
-    js = f"""
+    js = """
     <script>
-    function makeResizableAndDraggable(id) {{
+    function makeResizableAndDraggable(id) {
         const el = document.getElementById(id);
         if (!el) return;
 
         let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-        el.onmousedown = dragMouseDown;
 
-        function dragMouseDown(e) {{
-            if (e.target.classList.contains('resize-handle')) return;
-            e = e || window.event;
-            e.preventDefault();
-            pos3 = e.clientX;
-            pos4 = e.clientY;
-            document.onmouseup = closeDragElement;
-            document.onmousemove = elementDrag;
-        }}
+        function startDrag(clientX, clientY) {
+            pos3 = clientX;
+            pos4 = clientY;
+        }
 
-        function elementDrag(e) {{
-            e = e || window.event;
-            e.preventDefault();
-            pos1 = pos3 - e.clientX;
-            pos2 = pos4 - e.clientY;
-            pos3 = e.clientX;
-            pos4 = e.clientY;
+        function moveDrag(clientX, clientY) {
+            pos1 = pos3 - clientX;
+            pos2 = pos4 - clientY;
+            pos3 = clientX;
+            pos4 = clientY;
             el.style.top = (el.offsetTop - pos2) + "px";
             el.style.left = (el.offsetLeft - pos1) + "px";
-        }}
+            el.style.bottom = "auto";
+            el.style.right = "auto";
+        }
 
-        function closeDragElement() {{
-            document.onmouseup = null;
-            document.onmousemove = null;
-        }}
+        // Mouse Drag
+        el.onmousedown = function(e) {
+            if (e.target.classList.contains('resize-handle') || e.target.classList.contains('legend-toggle')) return;
+            e.preventDefault();
+            startDrag(e.clientX, e.clientY);
+            document.onmouseup = () => { document.onmouseup = null; document.onmousemove = null; };
+            document.onmousemove = (ev) => { ev.preventDefault(); moveDrag(ev.clientX, ev.clientY); };
+        };
+
+        // Touch Drag (Mobile)
+        el.addEventListener('touchstart', function(e) {
+            if (e.target.classList.contains('resize-handle') || e.target.classList.contains('legend-toggle')) return;
+            const touch = e.touches[0];
+            startDrag(touch.clientX, touch.clientY);
+        }, { passive: true });
+
+        el.addEventListener('touchmove', function(e) {
+            if (e.target.classList.contains('resize-handle') || e.target.classList.contains('legend-toggle')) return;
+            e.preventDefault();
+            const touch = e.touches[0];
+            moveDrag(touch.clientX, touch.clientY);
+        }, { passive: false });
 
         let resizer = el.querySelector('.resize-handle');
-        if (resizer) {{
-            resizer.onmousedown = initResize;
-            function initResize(e) {{
+        if (resizer) {
+            resizer.onmousedown = function(e) {
                 e.preventDefault();
+                function Resize(ev) {
+                    el.style.width = (ev.clientX - el.getBoundingClientRect().left) + 'px';
+                    el.style.height = (ev.clientY - el.getBoundingClientRect().top) + 'px';
+                }
+                function stopResize() {
+                    window.removeEventListener('mousemove', Resize);
+                    window.removeEventListener('mouseup', stopResize);
+                }
                 window.addEventListener('mousemove', Resize);
                 window.addEventListener('mouseup', stopResize);
-            }}
-            function Resize(e) {{
-                el.style.width = (e.clientX - el.getBoundingClientRect().left) + 'px';
-                el.style.height = (e.clientY - el.getBoundingClientRect().top) + 'px';
-            }}
-            function stopResize() {{
-                window.removeEventListener('mousemove', Resize);
-                window.removeEventListener('mouseup', stopResize);
-            }}
-        }}
+            };
+        }
+    }
 
-        function autoSizeLegend() {{
-            el.style.width = 'auto';
-            el.style.height = 'auto';
-            const rect = el.getBoundingClientRect();
-            const vw = window.innerWidth;
-            let targetWidth = Math.min(rect.width + 20, vw * 0.35, 140);
-            el.style.width = targetWidth + 'px';
-            const newRect = el.getBoundingClientRect();
-            el.style.height = newRect.height + 'px';
-        }}
-        autoSizeLegend();
-        window.addEventListener('resize', autoSizeLegend);
-    }}
-
-    window.addEventListener('load', () => {{
+    window.addEventListener('load', () => {
         makeResizableAndDraggable('legend-real');
         makeResizableAndDraggable('legend-pred');
-    }});
+    });
     </script>
     """
     m.get_root().header.add_child(folium.Element(js))
@@ -545,25 +620,33 @@ def add_basemaps(m):
         show=False,
     ).add_to(m)
     style_map_controls(m)
-    
+
+
 # ────────────────────────────────────────────────
 # Prediction Map
 # ────────────────────────────────────────────────
 def create_prediction_map():
-    m = folium.Map(location=MAP_CENTER, zoom_start=ZOOM_START, tiles=None, control_scale=True, zoom_snap=0.25, zoom_delta=0.5)
+    m = folium.Map(
+        location=MAP_CENTER,
+        zoom_start=ZOOM_START,
+        tiles=None,
+        control_scale=True,
+        zoom_snap=0.25,
+        zoom_delta=0.5,
+        prefer_canvas=True
+    )
     add_basemaps(m)
 
     generated_utc = datetime.now(timezone.utc)
     generated_time = (generated_utc + TIMEZONE_OFFSET).strftime("%d %B %Y %H:%M")
-    # One header, top-center. Timestamp lives inside it so the top-right
-    # stays free for the (collapsed) layer control.
+
     title_html = f'''
-    <div style="position:absolute; top:10px; left:50%; transform:translateX(-50%);
+    <div class="map-title-banner" style="position:absolute; top:10px; left:50%; transform:translateX(-50%);
                 background:rgba(255,255,255,0.94); padding:6px 16px 5px; border-radius:6px;
                 box-shadow:0 2px 8px rgba(0,0,0,0.22); z-index:1000; text-align:center;
                 border:1px solid #ccc; max-width:min(560px, 70vw); pointer-events:none;">
-        <div style="font-size:17px; font-weight:700; line-height:1.2;">Rainfall Map – LBB & Surroundings</div>
-        <div style="font-size:11px; font-weight:500; color:#444; margin-top:2px;">
+        <div class="main-title" style="font-size:17px; font-weight:700; line-height:1.2;">Rainfall Map – LBB & Surroundings</div>
+        <div class="sub-title" style="font-size:11px; font-weight:500; color:#444; margin-top:2px;">
             {generated_time} {TIMEZONE_LABEL} · OpenWeatherMap · IDW
         </div>
     </div>
@@ -580,9 +663,8 @@ def create_prediction_map():
     points_peak, values_peak = [], []
     points_24h, values_24h = [], []
 
-    # Collect warnings for the banner + JSON
-    warnings_list = []          # human readable
-    warning_stations = []       # structured for JSON
+    warnings_list = []
+    warning_stations = []
     station_history = []
     unavailable_stations = []
 
@@ -616,7 +698,6 @@ def create_prediction_map():
             "forecast": fc,
         })
 
-        # ---------- Popup content ----------
         popup_lines = [
             f"<b>3-Hourly Precipitation Forecast</b><br><br>"
         ]
@@ -634,7 +715,7 @@ def create_prediction_map():
             )
 
         popup_content = f"<div style='font-size:13px;line-height:1.5;'>{''.join(popup_lines)}</div>"
-        popup_obj = folium.Popup(popup_content, max_width=360)
+        popup_obj = folium.Popup(popup_content, max_width=320)
 
         tooltip_text = (
             f"Max PoP: {max_pop}% | Peak: {rain_at_max_pop:.1f} mm | "
@@ -653,12 +734,11 @@ def create_prediction_map():
 
         folium.Marker(
             [lat, lon],
-            popup=folium.Popup(popup_content, max_width=360),
+            popup=folium.Popup(popup_content, max_width=320),
             tooltip=folium.Tooltip(tooltip_text),
             icon=folium.Icon(icon=icon_name, prefix="fa", color=icon_color),
         ).add_to(fg_markers)
 
-        # Extra warning circle for heavy/extreme stations
         if overall in LEVEL_STYLE:
             style = LEVEL_STYLE[overall]
             folium.CircleMarker(
@@ -703,7 +783,6 @@ def create_prediction_map():
     fg_warnings.add_to(m)
     fg_heatmap.add_to(m)
 
-    # IDW layers
     if values_peak:
         min_p = min(values_peak)
         max_p = max(values_peak)
@@ -731,15 +810,13 @@ def create_prediction_map():
     fg_idw_peak.add_to(m)
     fg_idw_24h.add_to(m)
 
-    # Banner only for heavy / extreme. Moderate stays on the marker and in
-    # warnings_a.json (sidebar), so the map is not covered on a normal wet day.
     n_extreme = sum(1 for s in warning_stations if s["level"] == "extreme")
     n_heavy = sum(1 for s in warning_stations if s["level"] == "heavy")
     if n_extreme or n_heavy:
         banner_color = "#b91c1c" if n_extreme else "#c2410c"
         banner_text = f"Heavy rainfall warning:<br>{n_extreme} extreme, {n_heavy} heavy station(s)"
         banner_html = f'''
-        <div style="position:absolute; top:62px; left:12px; z-index:1001;
+        <div class="map-warning-banner" style="position:absolute; top:62px; left:12px; z-index:1001;
                     background:{banner_color}; color:white; padding:6px 12px;
                     border-radius:6px; box-shadow:0 2px 8px rgba(0,0,0,0.3);
                     font-size:13px; font-weight:600; max-width:340px;">
@@ -751,39 +828,43 @@ def create_prediction_map():
     else:
         print("No heavy/extreme rainfall — map banner hidden")
 
-    # ---------- Legend ----------
+    # ---------- Collapsible Touch-Friendly Legend ----------
     legend_html_pred = '''
     {% raw %}
     <style>
         #legend-pred {
-            position: fixed; bottom: 60px; right: 10px; z-index: 1000;
-            background: rgba(255,255,255,0.97); padding: 5px 7px;
+            position: fixed; bottom: 55px; right: 10px; z-index: 1000;
+            background: rgba(255,255,255,0.97); padding: 6px 8px;
             border: 1px solid #ccc; border-radius: 6px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-            width: 30vw; max-width: 115px; min-width: 90px;
-            font-size: 9.2px; line-height: 1.3; user-select: none; cursor: move;
+            width: auto; max-width: 135px; min-width: 95px;
+            font-size: 9.5px; line-height: 1.3; user-select: none; cursor: move;
         }
         #legend-pred .resize-handle {
             position: absolute; bottom: 1px; right: 1px; width: 12px; height: 12px;
             background: linear-gradient(135deg, transparent 50%, #777 50%);
             cursor: nwse-resize; opacity: 0.5;
         }
-        #legend-pred:hover .resize-handle { opacity: 0.8; }
-        #legend-pred p { margin: 0 0 4px 0; font-weight: bold; text-align: center; font-size: 11px; }
         #legend-pred strong { font-size: 9.5px; }
         #legend-pred img { width: 85%; max-width: 78px; display: block; margin: 2px auto; }
         @media (max-width: 768px) {
-            #legend-pred { width: 35vw; max-width: 130px; font-size: 9.5px; bottom: 50px; right: 8px; }
-            #legend-pred p { font-size: 10px; }
-            #legend-pred img { max-width: 80px; }
+            #legend-pred { bottom: 45px; right: 8px; max-width: 125px; }
+            #legend-pred img { max-width: 70px; }
         }
     </style>
     <div id="legend-pred">
-        <p>Forecast Rainfall</p>
-        <strong>Peak Rainfall</strong><br>
-        <img src="[PEAK_BASE64]"><br>
-        <strong>Expected 24h</strong><br>
-        <img src="[24H_BASE64]">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:6px; margin-bottom:3px;">
+            <span style="font-weight:bold; font-size:11px;">Legend</span>
+            <button class="legend-toggle" type="button"
+                    onclick="const b=this.parentElement.nextElementSibling; const h=b.style.display==='none'; b.style.display=h?'block':'none'; this.textContent=h?'−':'+';"
+                    style="border:1px solid #ccc; background:#f3f4f6; border-radius:4px; padding:0 6px; font-size:12px; line-height:1.4; cursor:pointer;">−</button>
+        </div>
+        <div class="legend-body">
+            <strong>Peak Rainfall</strong><br>
+            <img src="[PEAK_BASE64]"><br>
+            <strong>Expected 24h</strong><br>
+            <img src="[24H_BASE64]">
+        </div>
         <div class="resize-handle"></div>
     </div>
     {% endraw %}
@@ -824,7 +905,6 @@ def create_prediction_map():
     else:
         print("ℹ️ Forecast unchanged; history not duplicated. Updated last_update.")
 
-    # ---------- Write warnings JSON for the dashboard ----------
     warnings_payload = {
         "map": "a",
         "area": "Limboto - Bolango - Bone Basin",
@@ -855,17 +935,17 @@ def create_prediction_map():
 # Real-Time Map (optional – still disabled by default)
 # ────────────────────────────────────────────────
 def create_realtime_map():
-    m = folium.Map(location=MAP_CENTER, zoom_start=ZOOM_START, tiles=None, control_scale=True)
+    m = folium.Map(location=MAP_CENTER, zoom_start=ZOOM_START, tiles=None, control_scale=True, prefer_canvas=True)
     add_basemaps(m)
 
     generated_time = (datetime.now(timezone.utc) + TIMEZONE_OFFSET).strftime("%d %B %Y %H:%M")
     title_html = f'''
-    <div style="position:absolute; top:10px; left:50%; transform:translateX(-50%);
+    <div class="map-title-banner" style="position:absolute; top:10px; left:50%; transform:translateX(-50%);
                 background:rgba(255,255,255,0.94); padding:6px 16px 5px; border-radius:6px;
                 box-shadow:0 2px 8px rgba(0,0,0,0.22); z-index:1000; text-align:center;
                 border:1px solid #ccc; max-width:min(560px, 70vw); pointer-events:none;">
-        <div style="font-size:17px; font-weight:700; line-height:1.2;">Rainfall Map – LBB (Real-time)</div>
-        <div style="font-size:11px; font-weight:500; color:#444; margin-top:2px;">
+        <div class="main-title" style="font-size:17px; font-weight:700; line-height:1.2;">Rainfall Map – LBB (Real-time)</div>
+        <div class="sub-title" style="font-size:11px; font-weight:500; color:#444; margin-top:2px;">
             {generated_time} {TIMEZONE_LABEL} · OpenWeatherMap · IDW
         </div>
     </div>
@@ -896,7 +976,7 @@ def create_realtime_map():
             <b>Humidity:</b> {hum}%
         </div>
         """
-        popup_obj = folium.Popup(popup_content, max_width=350)
+        popup_obj = folium.Popup(popup_content, max_width=320)
         tooltip_text = f"Rainfall: {rain:.1f} mm | Temperature: {temp:.1f} °C"
 
         icon = folium.Icon(
@@ -924,11 +1004,11 @@ def create_realtime_map():
     {% raw %}
     <style>
         #legend-real {
-            position: fixed; bottom: 60px; right: 10px; z-index: 1000;
+            position: fixed; bottom: 55px; right: 10px; z-index: 1000;
             background: rgba(255,255,255,0.97); padding: 6px 8px;
             border: 1px solid #ccc; border-radius: 6px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-            width: 30vw; max-width: 140px; min-width: 90px;
+            width: auto; max-width: 140px; min-width: 95px;
             font-size: 10px; line-height: 1.3; user-select: none; cursor: move;
         }
         #legend-real .resize-handle {
@@ -936,12 +1016,18 @@ def create_realtime_map():
             background: linear-gradient(135deg, transparent 50%, #777 50%);
             cursor: nwse-resize; opacity: 0.5;
         }
-        #legend-real p { margin: 0 0 4px 0; font-weight: bold; text-align: center; font-size: 11px; }
-        #legend-real img { width: 85%; max-width: 90px; display: block; margin: 2px auto; }
+        #legend-real img { width: 85%; max-width: 85px; display: block; margin: 2px auto; }
     </style>
     <div id="legend-real">
-        <p>Current Rainfall</p>
-        <img src="[CURRENT_BASE64]" width="90">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:6px; margin-bottom:3px;">
+            <span style="font-weight:bold; font-size:11px;">Legend</span>
+            <button class="legend-toggle" type="button"
+                    onclick="const b=this.parentElement.nextElementSibling; const h=b.style.display==='none'; b.style.display=h?'block':'none'; this.textContent=h?'−':'+';"
+                    style="border:1px solid #ccc; background:#f3f4f6; border-radius:4px; padding:0 6px; font-size:12px; line-height:1.4; cursor:pointer;">−</button>
+        </div>
+        <div class="legend-body">
+            <img src="[CURRENT_BASE64]" width="85">
+        </div>
         <div class="resize-handle"></div>
     </div>
     {% endraw %}
@@ -950,7 +1036,7 @@ def create_realtime_map():
     legend_html_real = legend_html_real.replace("[CURRENT_BASE64]", current_b64)
     add_draggable_legend(m, legend_html_real, "legend-real")
 
-    folium.LayerControl().add_to(m)
+    folium.LayerControl(collapsed=True).add_to(m)
     m.save("rainfall_realtime_map_a.html")
     print("✅ Saved: rainfall_realtime_map_a.html")
 
@@ -959,6 +1045,11 @@ def create_realtime_map():
 # Main
 # ────────────────────────────────────────────────
 if __name__ == "__main__":
+    if not has_weather_changed(LOCATIONS):
+        print("ℹ️ OpenWeather forecast unchanged in canary check. Skipping full rebuild.")
+        logging.info("Skipped rebuild: no change in canary check.")
+        exit(0)
+
     now_str = (datetime.now(timezone.utc) + TIMEZONE_OFFSET).strftime("%d %B %Y %H:%M")
     print(f"Generating maps at {now_str} {TIMEZONE_LABEL}...")
     create_prediction_map()
