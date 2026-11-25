@@ -1,8 +1,8 @@
 {
   "map": "c",
   "area": "Randangan",
-  "generated": "25 November 2026 10:15",
-  "last_update": "2026-11-25T02:15:30Z",
+  "generated": "25 November 2026 14:11",
+  "last_update": "2026-11-25T06:11:08Z",
   "timezone": "UTC+8",
   "thresholds": {
     "peak_heavy_mm": 20.0,
@@ -15,43 +15,13 @@
   "has_warnings": true,
   "n_heavy": 0,
   "n_extreme": 0,
-  "n_moderate": 5,
+  "n_moderate": 2,
   "stations": [
-    {
-      "lat": 0.83469,
-      "lon": 121.595142,
-      "peak_mm": 6.9,
-      "expected_24h_mm": 17.8,
-      "max_pop": 100,
-      "level": "moderate",
-      "peak_level": "normal",
-      "h24_level": "moderate"
-    },
-    {
-      "lat": 0.906919,
-      "lon": 121.83341,
-      "peak_mm": 7.9,
-      "expected_24h_mm": 19.2,
-      "max_pop": 100,
-      "level": "moderate",
-      "peak_level": "normal",
-      "h24_level": "moderate"
-    },
     {
       "lat": 0.774285,
       "lon": 121.391439,
-      "peak_mm": 8.3,
-      "expected_24h_mm": 20.1,
-      "max_pop": 100,
-      "level": "moderate",
-      "peak_level": "normal",
-      "h24_level": "moderate"
-    },
-    {
-      "lat": 0.820464,
-      "lon": 121.731157,
-      "peak_mm": 6.3,
-      "expected_24h_mm": 15.8,
+      "peak_mm": 6.5,
+      "expected_24h_mm": 15.2,
       "max_pop": 100,
       "level": "moderate",
       "peak_level": "normal",
@@ -60,8 +30,8 @@
     {
       "lat": 0.713545,
       "lon": 121.274773,
-      "peak_mm": 7.8,
-      "expected_24h_mm": 18.0,
+      "peak_mm": 6.3,
+      "expected_24h_mm": 16.4,
       "max_pop": 100,
       "level": "moderate",
       "peak_level": "normal",
@@ -69,10 +39,7 @@
     }
   ],
   "summary": [
-    "MODERATE: Peak 6.9 mm / 24h 17.8 mm @ (0.835, 121.595)",
-    "MODERATE: Peak 7.9 mm / 24h 19.2 mm @ (0.907, 121.833)",
-    "MODERATE: Peak 8.3 mm / 24h 20.1 mm @ (0.774, 121.391)",
-    "MODERATE: Peak 6.3 mm / 24h 15.8 mm @ (0.820, 121.731)",
-    "MODERATE: Peak 7.8 mm / 24h 18.0 mm @ (0.714, 121.275)"
+    "MODERATE: Peak 6.5 mm / 24h 15.2 mm @ (0.774, 121.391)",
+    "MODERATE: Peak 6.3 mm / 24h 16.4 mm @ (0.714, 121.275)"
   ]
 }
