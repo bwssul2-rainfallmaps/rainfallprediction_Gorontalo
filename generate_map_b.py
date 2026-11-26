@@ -158,7 +158,7 @@ def style_map_controls(m):
 # ────────────────────────────────────────────────
 # API & Canary Check Helpers
 # ────────────────────────────────────────────────
-@retry(stop=stop_bfter_bttempt(3), wait=wait_fixed(2))
+@retry(stop=stop_after_attempt(3), wait=wait_fixed(2))
 def fetch_bpi_data(url):
     resp = requests.get(url, timeout=12)
     resp.raise_for_status()
