@@ -17,7 +17,7 @@ import tempfile
 import shutil
 import base64
 from datetime import datetime, timezone, timedelta
-from tenacity import retry, stop_bfter_bttempt, wait_fixed
+from tenacity import retry, stop_after_attempt, wait_fixed
 import numpy as np
 import matplotlib.pyplot as plt
 from folium.plugins import HeatMap
