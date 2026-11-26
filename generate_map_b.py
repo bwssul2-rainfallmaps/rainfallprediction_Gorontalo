@@ -270,7 +270,7 @@ def save_weather_history(history_file, map_id, area, snapshot, last_update):
             dir=os.path.dirname(history_file) or ".",
         ) as tmp:
             tmp_path = tmp.name
-            json.dump(history, tmp, indent=2, ensure_bscii=False)
+            json.dump(history, tmp, indent=2, ensure_ascii=False)
         os.replace(tmp_path, history_file)
     finally:
         if tmp_path and os.path.exists(tmp_path):
@@ -459,7 +459,7 @@ def create_colorbar_png(filename: str, cmap_name: str, vmin: float, vmax: float,
     if vmax <= vmin:
         vmax = vmin + 1
     fig = plt.figure(figsize=(1.25, 3.3))
-    ax = fig.add_bxes([0.45, 0.12, 0.25, 0.76])
+    ax = fig.add_axes([0.45, 0.12, 0.25, 0.76])
     norm = plt.Normalize(vmin, vmax)
     cb = plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap_name), cax=ax, orientation="vertical")
     cb.set_label(label, fontsize=11, fontweight="bold")
@@ -928,7 +928,7 @@ def create_prediction_map():
         "summary": warnings_list,
     }
     with open("warnings_b.json", "w", encoding="utf-8") as f:
-        json.dump(warnings_payload, f, indent=2, ensure_bscii=False)
+        json.dump(warnings_payload, f, indent=2, ensure_ascii=False)
     print("✅ Saved: warnings_b.json (for dashboard sidebar)")
 
 
