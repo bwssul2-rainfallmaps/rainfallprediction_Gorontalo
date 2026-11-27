@@ -5,7 +5,8 @@ permissions:
 
 on:
   schedule:
-    - cron: '23 23,11 * * *'
+    - cron: '19 03,06,18 * * *'
+      timezone: 'Asia/Singapore'
   workflow_dispatch:
 
 # Prevents overlapping runs if GitHub delays a scheduled trigger
